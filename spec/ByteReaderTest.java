@@ -7,15 +7,7 @@ import static org.junit.Assert.*;
 public class ByteReaderTest {
 
     @Test
-    public void itConvertsAByteStreamToText() {
-        ByteReader byteReader = new ByteReader();
-        byte[] helloWorld = "Hello world!".getBytes();
-
-        assertEquals("Hello world!", byteReader.convertToText(helloWorld));
-    }
-
-    @Test
-    public void itConvertsAnArrayListOfBytesToASingleString() {
+    public void itConvertsArrayListBytesToArrayListStrings() {
         ByteReader byteReader = new ByteReader();
 
         byte[] lineOne = "foo".getBytes();
@@ -25,7 +17,11 @@ public class ByteReaderTest {
         bytes.add(lineOne);
         bytes.add(lineTwo);
 
-        assertEquals("foo\nbar\n", byteReader.generateString(bytes));
+        ArrayList<String> strings = new ArrayList<String>();
+        strings.add("foo");
+        strings.add("bar");
+
+        assertEquals(strings, byteReader.convertToText(bytes));
     }
 
 }
