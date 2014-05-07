@@ -23,9 +23,11 @@ public class Listener {
 
         ArrayList<String> requestCollection = new ArrayList<String>();
         String line;
+        Logger logger = new Logger();
 
-        while ((line = br.readLine()) != null) {
+        while ((line = br.readLine()) != null && !line.equals("")) {
             requestCollection.add(line);
+            logger.log(line);
         }
 
         return requestCollection;
