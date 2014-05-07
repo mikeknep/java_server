@@ -12,6 +12,8 @@ public class Listener {
 
     public Socket listen(int portNumber) throws Exception {
         ServerSocket serverSocket = new ServerSocket(portNumber);
+        Logger logger = new Logger();
+        logger.log("Listening on port " + portNumber);
         return serverSocket.accept();
     }
 
