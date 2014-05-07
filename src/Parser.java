@@ -4,30 +4,22 @@ import java.util.ArrayList;
  * Created by mrk on 5/6/14.
  */
 public class Parser {
-    public String getLineWith(String lookup, ArrayList<String> strings) {
-        String returnLine = "";
 
-        for (String line : strings) {
-            if (line.contains(lookup)) {
-                returnLine += line;
-            }
-        }
-
-        return returnLine;
+    public String parseRequestLine(String request, int index) {
+        String[] components = request.split(" ");
+        return components[index];
     }
 
-    public String parseRequestType(String request) {
-        String[] words = request.split(" ");
-        return words[0];
+    public String parseRequestMethod(String request) {
+        return parseRequestLine(request, 0);
     }
 
     public String parseRequestedResource(String request) {
-        String[] words = request.split(" ");
-        return words[1];
+        return parseRequestLine(request, 1);
     }
 
     public String parseHTTPVersion(String request) {
-        String[] words = request.split(" ");
-        return words[2];
+        return parseRequestLine(request, 2);
     }
+
 }
