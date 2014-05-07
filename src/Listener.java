@@ -20,8 +20,11 @@ public class Listener {
         BufferedReader br = new BufferedReader(isr);
 
         ArrayList<String> requestCollection = new ArrayList<String>();
+        String line;
 
-        requestCollection.add(br.readLine());
+        while ((line = br.readLine()) != null) {
+            requestCollection.add(line);
+        }
 
         return requestCollection;
     }

@@ -18,4 +18,16 @@ public class ListenerTest {
 
         assertEquals(requestCollection, listener.collect(incoming));
     }
+
+    @Test
+    public void itCollectsMultilineRequest() throws Exception {
+        Listener listener = new Listener();
+        ByteArrayInputStream incoming = new ByteArrayInputStream("First line\nSecond line".getBytes());
+
+        ArrayList<String> requestCollection = new ArrayList<String>();
+        requestCollection.add("First line");
+        requestCollection.add("Second line");
+
+        assertEquals(requestCollection, listener.collect(incoming));
+    }
 }
