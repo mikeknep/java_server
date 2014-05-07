@@ -15,4 +15,19 @@ public class Parser {
 
         return returnLine;
     }
+
+    public String parseRequestType(String request) {
+        String[] words = request.split(" ");
+        return words[0];
+    }
+
+    public String parseRequestedResource(String request) {
+        String[] words = request.split(" ");
+        return words[1];
+    }
+
+    public String parseHTTPVersion(String request) {
+        String[] words = request.split(" ");
+        return words[2];
+    }
 }

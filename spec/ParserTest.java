@@ -27,4 +27,28 @@ public class ParserTest {
         assertEquals("", parser.getLineWith("Hello world!", strings));
     }
 
+    @Test
+    public void itParsesRequestType() {
+        Parser parser = new Parser();
+        String requestLine = "GET /index.html HTTP/1.1";
+
+        assertEquals("GET", parser.parseRequestType(requestLine));
+    }
+
+    @Test
+    public void itParsesRequestedResource() {
+        Parser parser = new Parser();
+        String requestLine = "GET /index.html HTTP/1.1";
+
+        assertEquals("/index.html", parser.parseRequestedResource(requestLine));
+    }
+
+    @Test
+    public void itParsesHTTPVersion() {
+        Parser parser = new Parser();
+        String requestLine = "GET /index.html HTTP/1.1";
+
+        assertEquals("HTTP/1.1", parser.parseHTTPVersion(requestLine));
+    }
+
 }
