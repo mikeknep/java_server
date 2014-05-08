@@ -1,3 +1,4 @@
+import java.io.File;
 import java.net.Socket;
 import java.util.ArrayList;
 
@@ -20,12 +21,12 @@ public class Runner {
         ArrayList<String> requestCollection = listener.collect(socket.getInputStream());
 
         String firstLineOfRequest = requestCollection.get(0);
-
-        String requestMethod = parser.parseRequestMethod(firstLineOfRequest);
         String requestedResource = parser.parseRequestedResource(firstLineOfRequest);
-        String httpVersion = parser.parseHTTPVersion(firstLineOfRequest);
 
-        String response = responder.formatResponse("HTTP/1.1 200 OK", "<h1>Hello world</h1><p>This rocks!</p>");
+        File resource = responder.locateFile("/Users/mrk/Desktop/dahomey", requestedResource);
+        String body = responder.readFile(resource);
+
+        String response = responder.formatResponse("HTTP/1.1 200 OK", body);
         responder.respond(response, socket.getOutputStream());
 
         socket.close();
