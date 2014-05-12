@@ -28,17 +28,17 @@ public class RequestTest {
     }
 
     @Test
-    public void itReturnsAnOption() {
-        assertEquals("text/html", request.getOption("Content-Type"));
+    public void itReturnsAHeader() {
+        assertEquals("text/html", request.getHeader("Content-Type"));
     }
 
     @Test
-    public void itReturnsAnotherOption() {
-        assertEquals("135", request.getOption("Accept-Ranges"));
+    public void itReturnsAnotherHeader() {
+        assertEquals("135", request.getHeader("Accept-Ranges"));
     }
 
     @Test
-    public void itReturnsNullForNonexistentOption() {
-        assertEquals(null, request.getOption("nonsense"));
+    public void itReturnsNullForNonexistentHeader() {
+        assertEquals(null, request.getHeader("nonsense"));
     }
 }

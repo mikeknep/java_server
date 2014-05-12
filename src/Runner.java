@@ -8,7 +8,6 @@ import java.util.ArrayList;
 */
 public class Runner {
     Listener listener = new Listener();
-    Parser parser = new Parser();
     Responder responder = new Responder();
     Logger logger = new Logger();
 
