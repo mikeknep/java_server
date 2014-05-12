@@ -14,22 +14,6 @@ public class Listener {
         return serverSocket.accept();
     }
 
-    public ArrayList<String> collect(InputStream incoming) throws Exception {
-        InputStreamReader isr = new InputStreamReader(incoming);
-        BufferedReader br = new BufferedReader(isr);
-
-        ArrayList<String> requestCollection = new ArrayList<String>();
-        String line;
-        Logger logger = new Logger();
-
-        while ((line = br.readLine()) != null && !line.equals("")) {
-            requestCollection.add(line);
-            logger.log(line);
-        }
-
-        return requestCollection;
-    }
-
     public String collectRawRequest(InputStream incoming) throws Exception {
         InputStreamReader isr = new InputStreamReader(incoming);
         BufferedReader br = new BufferedReader(isr);
