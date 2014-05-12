@@ -14,8 +14,13 @@ public class Responder {
         outWriter.println(response);
     }
 
-    public File locateFile(String directory, String filename) {
+    public File locateFile(String directory, String resource) {
+        String filename = resource;
+        if (requestedResourceIsRoot(resource)) {
+            filename = appendIndexToRoot(resource);
+        }
         String fullPath = directory + filename;
+
         return new File(fullPath);
     }
 
@@ -27,6 +32,19 @@ public class Responder {
             builder.append(str);
         }
         in.close();
+        return builder.toString();
+    }
+
+
+
+    private boolean requestedResourceIsRoot(String resource) {
+        return resource.equals("/");
+    }
+
+    private String appendIndexToRoot(String resource) {
+        StringBuilder builder = new StringBuilder();
+        builder.append(resource);
+        builder.append("index.html");
         return builder.toString();
     }
 }

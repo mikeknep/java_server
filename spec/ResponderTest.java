@@ -18,10 +18,19 @@ public class ResponderTest {
     @Test
     public void itLocatesAFile() {
         Responder responder = new Responder();
-        String directory = "spec/";
-        String filename = "mock.html";
+        String directory = "spec";
+        String resource = "/mock.html";
 
-        assertEquals(new File("spec/mock.html"), responder.locateFile(directory, filename));
+        assertEquals(new File("spec/mock.html"), responder.locateFile(directory, resource));
+    }
+
+    @Test
+    public void itReturnsIndexForRootRequest() {
+        Responder responder = new Responder();
+        String directory = "spec";
+        String resource = "/";
+
+        assertEquals(new File("spec/index.html"), responder.locateFile(directory, resource));
     }
 
     @Test
