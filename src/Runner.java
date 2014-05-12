@@ -1,4 +1,5 @@
 import java.io.File;
+import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 
@@ -9,6 +10,7 @@ public class Runner {
     Listener listener = new Listener();
     Parser parser = new Parser();
     Responder responder = new Responder();
+    Logger logger = new Logger();
 
     public static void main(String[] args) throws Exception
     {
@@ -17,18 +19,24 @@ public class Runner {
     }
 
     public void run() throws Exception {
-        Socket socket = listener.listen(8399);
-        ArrayList<String> requestCollection = listener.collect(socket.getInputStream());
+        ServerSocket serverSocket = new ServerSocket(8399);
+        logger.log("Server initialized on port " + serverSocket.getLocalPort());
 
-        String firstLineOfRequest = requestCollection.get(0);
-        String requestedResource = parser.parseRequestedResource(firstLineOfRequest);
+        while (true) {
+            Socket socket = listener.listen(serverSocket);
 
-        File resource = responder.locateFile("/Users/mrk/Desktop/dahomey", requestedResource);
-        String body = responder.readFile(resource);
+            ArrayList<String> requestCollection = listener.collect(socket.getInputStream());
 
-        String response = responder.formatResponse("HTTP/1.1 200 OK", body);
-        responder.respond(response, socket.getOutputStream());
+            String firstLineOfRequest = requestCollection.get(0);
+            String requestedResource = parser.parseRequestedResource(firstLineOfRequest);
 
-        socket.close();
+            File resource = responder.locateFile("/Users/mrk/Desktop/dahomey", requestedResource);
+            String body = responder.readFile(resource);
+
+            String response = responder.formatResponse("HTTP/1.1 200 OK", body);
+            responder.respond(response, socket.getOutputStream());
+
+            socket.close();
+        }
     }
 }

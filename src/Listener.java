@@ -10,10 +10,7 @@ import java.util.ArrayList;
  */
 public class Listener {
 
-    public Socket listen(int portNumber) throws Exception {
-        ServerSocket serverSocket = new ServerSocket(portNumber);
-        Logger logger = new Logger();
-        logger.log("Listening on port " + portNumber);
+    public Socket listen(ServerSocket serverSocket) throws Exception {
         return serverSocket.accept();
     }
 
