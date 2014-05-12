@@ -29,4 +29,20 @@ public class Listener {
 
         return requestCollection;
     }
+
+    public String collectRawRequest(InputStream incoming) throws Exception {
+        InputStreamReader isr = new InputStreamReader(incoming);
+        BufferedReader br = new BufferedReader(isr);
+        StringBuilder builder = new StringBuilder();
+
+        String line;
+        Logger logger = new Logger();
+
+        while ((line = br.readLine()) != null && !line.equals("")) {
+            builder.append(line + "\n");
+            logger.log(line);
+        }
+
+        return builder.toString();
+    }
 }
