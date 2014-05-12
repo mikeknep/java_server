@@ -25,14 +25,11 @@ public class Runner {
         while (true) {
             Socket socket = listener.listen(serverSocket);
 
-            ArrayList<String> requestCollection = listener.collect(socket.getInputStream());
+            String rawRequest = listener.collectRawRequest(socket.getInputStream());
+            Request request = new Request(rawRequest);
 
-            String firstLineOfRequest = requestCollection.get(0);
-            String requestedResource = parser.parseRequestedResource(firstLineOfRequest);
-
-            File resource = responder.locateFile("/Users/mrk/Desktop/dahomey", requestedResource);
+            File resource = responder.locateFile("/Users/mrk/Desktop/dahomey", request.getResource());
             String body = responder.readFile(resource);
-
             String response = responder.formatResponse("HTTP/1.1 200 OK", body);
             responder.respond(response, socket.getOutputStream());
 
