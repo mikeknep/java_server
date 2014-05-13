@@ -29,8 +29,10 @@ public class Runner {
 
             File resource = responder.locateFile("/Users/mrk/Desktop/dahomey", request.getResource());
             String body = responder.readFile(resource);
-            String response = responder.formatResponse("HTTP/1.1 200 OK", body);
-            responder.respond(response, socket.getOutputStream());
+
+            Response response = new Response(request.getVersion(), "200 OK", body);
+            String responseAsString = ResponsePresenter.present(response);
+            responder.respond(responseAsString, socket.getOutputStream());
 
             socket.close();
         }
