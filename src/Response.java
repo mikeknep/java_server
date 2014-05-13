@@ -1,25 +1,31 @@
-import java.util.HashMap;
-
 /**
  * Created by mrk on 5/12/14.
  */
 public class Response {
     private String version;
     private String status;
-    private HashMap<String, String> headers = new HashMap<String, String>();
     private String body;
 
-    public void setVersion(String version) {
+    public Response(String version, String status, String body) {
+        setVersion(version);
+        setStatus(status);
+        setBody(body);
+    }
+
+    private void setVersion(String version) {
         this.version = version;
     }
     public String getVersion() {
         return this.version;
     }
 
-    public void setStatus(String status) {
+    private void setStatus(String status) {
         this.status = status;
     }
     public String getStatus() {
         return this.status;
     }
+
+    private void setBody(String body) { this.body = body; }
+    public String getBody() { return this.body; }
 }

@@ -7,9 +7,7 @@ public class ResponseTest {
     Response response;
     @Before
     public void setUpResponse() {
-        response = new Response();
-        response.setVersion("HTTP/1.1");
-        response.setStatus("200 OK");
+        response = new Response("HTTP/1.1", "200 OK", "Hello world");
     }
 
     @Test
@@ -21,4 +19,7 @@ public class ResponseTest {
     public void itReturnsItsStatus() {
         assertEquals("200 OK", response.getStatus());
     }
+
+    @Test
+    public void itReturnsItsBody() { assertEquals("Hello world", response.getBody()); }
 }
