@@ -5,15 +5,15 @@ import java.net.Socket;
 /**
 * Created by mrk on 5/7/14.
 */
-public class Runner {
+public class Server {
     Listener listener = new Listener();
     Logger logger = new Logger();
 
     public static void main(String[] args) throws Exception
     {
-        Runner runner = new Runner();
+        Server server = new Server();
         SettingsConfig config = new SettingsConfig(args);
-        runner.run(config.getPort(), config.getDirectory());
+        server.run(config.getPort(), config.getDirectory());
     }
 
     public void run(int port, String directory) throws Exception {
