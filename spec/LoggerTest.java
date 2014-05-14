@@ -35,4 +35,20 @@ public class LoggerTest {
 
         assertEquals("Server initialized on port 8399, serving directory /Users/mrk/Desktop\n", output.toString());
     }
+
+    @Test
+    public void itLogsIgnoredException() {
+        Logger logger = new Logger();
+        logger.logException(new Exception(), "ignore");
+
+        assertEquals("Exception caught: java.lang.Exception. Ignored.\n", output.toString());
+    }
+
+    @Test
+    public void itLogs500Exception() {
+        Logger logger = new Logger();
+        logger.logException(new Exception(), "500");
+
+        assertEquals("Exception caught: java.lang.Exception. 500 response sent.\n", output.toString());
+    }
 }

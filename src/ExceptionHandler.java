@@ -8,11 +8,11 @@ public class ExceptionHandler {
         Logger logger = new Logger();
 
         if (exception instanceof PhantomRequestException) {
-            logger.log("Phantom request caught. Ignoring...");
+            logger.logException(exception, "ignore");
         } else {
             Response response500 = ResponseBuilder.build500Response();
             Responder.sendResponse(response500, socket);
-            logger.log("Exception: " + exception);
+            logger.logException(exception, "500");
         }
     }
 }
