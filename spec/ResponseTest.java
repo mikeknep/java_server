@@ -7,7 +7,10 @@ public class ResponseTest {
     Response response;
     @Before
     public void setUpResponse() {
-        response = new Response("HTTP/1.1", "200 OK", "Hello world");
+        response = new Response();
+        response.setVersion("HTTP/1.1");
+        response.setStatus("200 OK");
+        response.setBody("Hello world");
     }
 
     @Test

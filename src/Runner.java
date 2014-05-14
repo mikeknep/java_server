@@ -26,14 +26,13 @@ public class Runner {
             try {
                 String rawRequest = listener.collectRawRequest(socket.getInputStream());
                 Request request = RequestBuilder.buildRequest(rawRequest);
+                Response response = ResponseBuilder.buildResponse(directory, request);
+                // Responder.sendResponse(response);
 
-                ResourceHandler handler = new ResourceHandler(directory, request.getResource());
-                Response response = new Response(request.getVersion(), handler.getStatus(), handler.getResourceString());
 
+
+                // This will be the responsibility of the Responder
                 String responseAsString = ResponsePresenter.present(response);
-
-
-                // This needs to be wrapped in some object
                 PrintWriter outWriter = new PrintWriter(socket.getOutputStream(), true);
                 outWriter.println(responseAsString);
 
