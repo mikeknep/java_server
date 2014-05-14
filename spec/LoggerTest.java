@@ -27,4 +27,12 @@ public class LoggerTest {
 
         assertEquals("Hello world\n", output.toString());
     }
+
+    @Test
+    public void itLogsAStartupMessage() {
+        Logger logger = new Logger();
+        logger.startupMessage(8399, "/Users/mrk/Desktop");
+
+        assertEquals("Server initialized on port 8399, serving directory /Users/mrk/Desktop\n", output.toString());
+    }
 }
