@@ -40,7 +40,7 @@ public class RequestBuilderTest {
     }
 
     @Test
-    public void itBuildsARequest() {
+    public void itBuildsARequest() throws Exception {
         Request request = new Request();
         request.setMethod("GET");
         request.setResource("/index.html");

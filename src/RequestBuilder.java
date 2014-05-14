@@ -2,7 +2,10 @@
  * Created by mrk on 5/14/14.
  */
 public class RequestBuilder {
-    public static Request buildRequest(String rawRequest) {
+    public static Request buildRequest(String rawRequest) throws Exception {
+        if (rawRequest.equals("")) {
+            throw new PhantomRequestException();
+        }
         Request request = new Request();
 
         String requestLine = parseRequestLine(rawRequest);

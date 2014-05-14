@@ -23,21 +23,27 @@ public class Runner {
         while (true) {
             Socket socket = listener.listen(serverSocket);
 
-            String rawRequest = listener.collectRawRequest(socket.getInputStream());
-            Request request = RequestBuilder.buildRequest(rawRequest);
+            try {
+                String rawRequest = listener.collectRawRequest(socket.getInputStream());
+                Request request = RequestBuilder.buildRequest(rawRequest);
 
-            ResourceHandler handler = new ResourceHandler(directory, request.getResource());
-            Response response = new Response(request.getVersion(), handler.getStatus(), handler.getResourceString());
+                ResourceHandler handler = new ResourceHandler(directory, request.getResource());
+                Response response = new Response(request.getVersion(), handler.getStatus(), handler.getResourceString());
 
-            String responseAsString = ResponsePresenter.present(response);
-
-
-            // This needs to be wrapped in some object
-            PrintWriter outWriter = new PrintWriter(socket.getOutputStream(), true);
-            outWriter.println(responseAsString);
+                String responseAsString = ResponsePresenter.present(response);
 
 
-            socket.close();
+                // This needs to be wrapped in some object
+                PrintWriter outWriter = new PrintWriter(socket.getOutputStream(), true);
+                outWriter.println(responseAsString);
+
+
+                socket.close();
+            }
+            catch (PhantomRequestException phantom) {
+                logger.log("Phantom request!");
+                socket.close();
+            }
         }
     }
 }
