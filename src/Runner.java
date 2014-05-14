@@ -12,12 +12,13 @@ public class Runner {
     public static void main(String[] args) throws Exception
     {
         Runner runner = new Runner();
-        runner.run();
+        SettingsConfig config = new SettingsConfig(args);
+        runner.run(config.getPort(), config.getDirectory());
     }
 
-    public void run() throws Exception {
-        ServerSocket serverSocket = new ServerSocket(8399);
-        logger.log("Server initialized on port " + serverSocket.getLocalPort());
+    public void run(int port, String directory) throws Exception {
+        ServerSocket serverSocket = new ServerSocket(port);
+        logger.log("Server initialized on port " + port);
 
         while (true) {
             Socket socket = listener.listen(serverSocket);
@@ -25,7 +26,7 @@ public class Runner {
             String rawRequest = listener.collectRawRequest(socket.getInputStream());
             Request request = new Request(rawRequest);
 
-            ResourceHandler handler = new ResourceHandler("/Users/mrk/Desktop/dahomey", request.getResource());
+            ResourceHandler handler = new ResourceHandler(directory, request.getResource());
             Response response = new Response(request.getVersion(), handler.getStatus(), handler.getResourceString());
 
             String responseAsString = ResponsePresenter.present(response);
