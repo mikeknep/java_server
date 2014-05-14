@@ -34,4 +34,9 @@ public class ResponseBuilderTest {
 
         assertEquals(response.getBody(), ResponseBuilder.buildResponse(directory, request).getBody());
     }
+
+    @Test
+    public void itBuilds500Response() throws Exception {
+        assertEquals("500 Internal Server Error", ResponseBuilder.build500Response().getStatus());
+    }
 }

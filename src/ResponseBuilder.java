@@ -21,4 +21,14 @@ public class ResponseBuilder {
             return "404 Not Found";
         }
     }
+
+    public static Response build500Response() {
+        Response response = new Response();
+
+        response.setVersion("HTTP/1.1");
+        response.setStatus("500 Internal Server Error");
+        response.setBody("Oh no! 500!");
+
+        return response;
+    }
 }
