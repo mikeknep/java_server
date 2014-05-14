@@ -2,7 +2,7 @@
  * Created by mrk on 5/13/14.
  */
 public class ResponsePresenter {
-    public static String present(Response response) {
+    public static String generateFullResponse(Response response) {
         StringBuilder builder = new StringBuilder();
         builder.append(generateStatusLine(response));
         builder.append("\n");

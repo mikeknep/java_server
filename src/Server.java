@@ -1,4 +1,3 @@
-import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -27,20 +26,11 @@ public class Server {
                 String rawRequest = listener.collectRawRequest(socket.getInputStream());
                 Request request = RequestBuilder.buildRequest(rawRequest);
                 Response response = ResponseBuilder.buildResponse(directory, request);
-                // Responder.sendResponse(response);
-
-
-
-                // This will be the responsibility of the Responder
-                String responseAsString = ResponsePresenter.present(response);
-                PrintWriter outWriter = new PrintWriter(socket.getOutputStream(), true);
-                outWriter.println(responseAsString);
-
-
+                Responder.sendResponse(response, socket);
                 socket.close();
             }
-            catch (PhantomRequestException phantom) {
-                logger.log("Phantom request!");
+            catch (Exception e) {
+                ExceptionHandler.handle(e);
                 socket.close();
             }
         }

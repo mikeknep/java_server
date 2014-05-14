@@ -4,7 +4,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class ResponsePresenterTest {
-    Response response;// = new Response();//"HTTP/1.1", "200 OK", "Hello world");
+    Response response;
     @Before
     public void setUpResponse() {
         response = new Response();
@@ -20,6 +20,6 @@ public class ResponsePresenterTest {
 
     @Test
     public void itPresentsAResponseAsASingleString() {
-        assertEquals("HTTP/1.1 200 OK\n\nHello world", ResponsePresenter.present(response));
+        assertEquals("HTTP/1.1 200 OK\n\nHello world", ResponsePresenter.generateFullResponse(response));
     }
 }
