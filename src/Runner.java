@@ -24,7 +24,7 @@ public class Runner {
             Socket socket = listener.listen(serverSocket);
 
             String rawRequest = listener.collectRawRequest(socket.getInputStream());
-            Request request = new Request(rawRequest);
+            Request request = RequestBuilder.buildRequest(rawRequest);
 
             ResourceHandler handler = new ResourceHandler(directory, request.getResource());
             Response response = new Response(request.getVersion(), handler.getStatus(), handler.getResourceString());

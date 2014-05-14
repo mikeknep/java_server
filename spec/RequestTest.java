@@ -8,33 +8,35 @@ public class RequestTest {
 
     @Before
     public void setUpRequest() {
-        request = new Request("GET /index.html HTTP/1.1\nContent-Type: text/html\nAccept-Ranges: 135");
+        request = new Request();
     }
 
-
     @Test
-    public void itReturnsItsMethod() {
+    public void itSetsItsMethod() {
+        request.setMethod("GET");
+
         assertEquals("GET", request.getMethod());
     }
 
     @Test
     public void itReturnsItsResource() {
+        request.setResource("/index.html");
+
         assertEquals("/index.html", request.getResource());
     }
 
     @Test
     public void itReturnsItsHTTPVersion() {
+        request.setVersion("HTTP/1.1");
+
         assertEquals("HTTP/1.1", request.getVersion());
     }
 
     @Test
-    public void itReturnsAHeader() {
-        assertEquals("text/html", request.getHeader("Content-Type"));
-    }
+    public void itSetsHeadersAndReturnsSingleHeader() {
+        request.setHeader("Content-Type", "text/html");
 
-    @Test
-    public void itReturnsAnotherHeader() {
-        assertEquals("135", request.getHeader("Accept-Ranges"));
+        assertEquals("text/html", request.getHeader("Content-Type"));
     }
 
     @Test
