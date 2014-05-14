@@ -18,7 +18,7 @@ public class Runner {
 
     public void run(int port, String directory) throws Exception {
         ServerSocket serverSocket = new ServerSocket(port);
-        logger.log("Server initialized on port " + port);
+        logger.log("Server initialized on port " + port + ", serving directory " + directory);
 
         while (true) {
             Socket socket = listener.listen(serverSocket);
