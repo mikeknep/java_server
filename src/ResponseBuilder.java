@@ -1,3 +1,4 @@
+import java.net.URLConnection;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
@@ -18,6 +19,9 @@ public class ResponseBuilder {
         String resourceToSend = determineResourceToSend(status, request.getResource());
         response.setBodyData(generateBodyData(directory, resourceToSend));
 
+        response.setHeader("Content-Length", String.valueOf(response.getBodyData().length));
+        response.setHeader("Content-Type", determineContentType(directory, resourceToSend));
+
         return response;
     }
 
@@ -33,12 +37,16 @@ public class ResponseBuilder {
         if (status.equals("200 OK")) {
             return resource;
         } else {
-            return "404.html";
+            return "/404.html";
         }
     }
 
     public static byte[] generateBodyData(String directory, String resource) throws Exception {
         return Files.readAllBytes(Paths.get(directory + resource));
+    }
+
+    public static String determineContentType(String directory, String resource) throws Exception {
+        return URLConnection.guessContentTypeFromName(directory + resource);
     }
 
 
