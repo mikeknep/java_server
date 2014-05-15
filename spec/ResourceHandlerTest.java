@@ -7,19 +7,19 @@ import static org.junit.Assert.*;
 public class ResourceHandlerTest {
     @Test
     public void itSetsResourceAsFileWhenPresent() throws Exception {
-        ResourceHandler handler = new ResourceHandler("spec", "/mock.html");
-        assertEquals(new File("spec/mock.html"), handler.getResource());
+        ResourceHandler handler = new ResourceHandler("spec/sample_files", "/mock.html");
+        assertEquals(new File("spec/sample_files/mock.html"), handler.getResource());
     }
 
     @Test
     public void itSetsResourceAs404WhenNotPresent() throws Exception {
-        ResourceHandler handler = new ResourceHandler("spec", "/nonexistent.html");
-        assertEquals(new File("spec/404.html"), handler.getResource());
+        ResourceHandler handler = new ResourceHandler("spec/sample_files", "/nonexistent.html");
+        assertEquals(new File("spec/sample_files/404.html"), handler.getResource());
     }
 
     @Test
     public void itConvertsResourceToString() throws Exception {
-        ResourceHandler handler = new ResourceHandler("spec", "/mock.html");
+        ResourceHandler handler = new ResourceHandler("spec/sample_files", "/mock.html");
         assertEquals("Good morning, world!", handler.getResourceString());
     }
 }

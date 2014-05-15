@@ -9,7 +9,7 @@ import static org.junit.Assert.*;
 public class ResourceLocatorTest {
     @Test
     public void recognizesPresentResourceWithRelativePath() {
-        assertEquals(true, ResourceLocator.resourceIsPresent("spec", "/mock.html"));
+        assertEquals(true, ResourceLocator.resourceIsPresent("spec", "/sample_files/mock.html"));
     }
 
     @Test
@@ -19,7 +19,7 @@ public class ResourceLocatorTest {
 
     @Test
      public void recognizesPresentResourceWithAbsolutePath() {
-        assertEquals(true, ResourceLocator.resourceIsPresent("/Users/mrk/8thlight/dahomey/spec", "/mock.html"));
+        assertEquals(true, ResourceLocator.resourceIsPresent("/Users/mrk/8thlight/dahomey/spec", "/sample_files/mock.html"));
     }
 
     @Test
@@ -29,8 +29,8 @@ public class ResourceLocatorTest {
 
     @Test
     public void understandsRelativeAndAbsolutePathsToSameFile() throws Exception {
-        Path relative = Paths.get("spec/mock.html");
-        Path absolute = Paths.get("/Users/mrk/8thlight/dahomey/spec/mock.html");
+        Path relative = Paths.get("spec/sample_files/mock.html");
+        Path absolute = Paths.get("/Users/mrk/8thlight/dahomey/spec/sample_files/mock.html");
         assertEquals(true, Files.isSameFile(relative, absolute));
     }
 }
