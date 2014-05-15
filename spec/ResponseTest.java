@@ -1,6 +1,8 @@
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.HashMap;
+
 import static org.junit.Assert.*;
 
 public class ResponseTest {
@@ -12,6 +14,7 @@ public class ResponseTest {
         response.setStatus("200 OK");
         response.setBody("Hello world");
         response.setBodyData("Hello world".getBytes());
+        response.setHeader("Content-Type", "text/html");
     }
 
     @Test
@@ -29,4 +32,12 @@ public class ResponseTest {
 
     @Test
     public void itReturnsBodyData() { assertArrayEquals("Hello world".getBytes(), response.getBodyData()); }
+
+    @Test
+    public void itReturnsItsHeaders() {
+        HashMap<String, String> headers = new HashMap<String, String>();
+        headers.put("Content-Type", "text/html");
+
+        assertEquals(headers, response.getHeaders());
+    }
 }

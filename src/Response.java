@@ -8,6 +8,7 @@ public class Response {
     private String status;
     private String body;
     private byte[] bodyData;
+    private HashMap<String, String> headers = new HashMap<String, String>();
 
     public void setVersion(String version) {
         this.version = version;
@@ -28,4 +29,7 @@ public class Response {
 
     public void setBodyData(byte[] bodyData) { this.bodyData = bodyData; }
     public byte[] getBodyData() { return this.bodyData; }
+
+    public void setHeader(String key, String value) { this.headers.put(key, value); }
+    public HashMap<String, String> getHeaders() { return this.headers; }
 }
