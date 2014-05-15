@@ -17,12 +17,12 @@ public class ResponseBuilderTest {
 
     @Test
     public void itGenerates200Status() {
-        assertEquals("200 OK", ResponseBuilder.generateStatus(directory, request));
+        assertEquals("200 OK", ResponseBuilder.generateStatus(directory, request.getResource()));
     }
 
     @Test
     public void itGenerates404Status() {
-        assertEquals("404 Not Found", ResponseBuilder.generateStatus("nonexistent/directory", request));
+        assertEquals("404 Not Found", ResponseBuilder.generateStatus("nonexistent/directory", request.getResource()));
     }
 
     @Test
@@ -33,6 +33,16 @@ public class ResponseBuilderTest {
         response.setBody("Good morning, world!");
 
         assertEquals(response.getBody(), ResponseBuilder.buildResponse(directory, request).getBody());
+    }
+
+    @Test
+    public void itGeneratesBodyDataFromPresentResource() throws Exception {
+        assertArrayEquals("Good morning, world!".getBytes(), ResponseBuilder.generateBodyData("spec", "/mock.html"));
+    }
+
+    @Test
+    public void itGeneratesBodyDataFrom404ForMissingResource() throws Exception {
+        assertArrayEquals("Oh no! 404!".getBytes(), ResponseBuilder.generateBodyData("spec", "/404.html"));
     }
 
     @Test

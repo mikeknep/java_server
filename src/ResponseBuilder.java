@@ -1,3 +1,6 @@
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 /**
  * Created by mrk on 5/14/14.
  */
@@ -8,19 +11,35 @@ public class ResponseBuilder {
         Response response = new Response();
 
         response.setVersion(request.getVersion());
-        response.setStatus(generateStatus(directory, request));
+        String status = generateStatus(directory, request.getResource());
+        response.setStatus(status);
         response.setBody(handler.getResourceString());
+
+        byte[] bodyData;
+        if (status.equals("200 OK")) {
+            bodyData = generateBodyData(directory, request.getResource());
+        }
+        else {
+            bodyData = generateBodyData(directory, "404.html");
+        }
+        response.setBodyData(bodyData);
 
         return response;
     }
 
-    public static String generateStatus(String directory, Request request) {
-        if (ResourceLocator.resourceIsPresent(directory, request.getResource())) {
+    public static String generateStatus(String directory, String resource) {
+        if (ResourceLocator.resourceIsPresent(directory, resource)) {
             return "200 OK";
         } else {
             return "404 Not Found";
         }
     }
+
+    public static byte[] generateBodyData(String directory, String resource) throws Exception {
+        return Files.readAllBytes(Paths.get(directory + resource));
+    }
+
+
 
     public static Response build500Response() {
         Response response = new Response();
