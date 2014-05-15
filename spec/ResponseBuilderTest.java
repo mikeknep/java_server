@@ -26,6 +26,16 @@ public class ResponseBuilderTest {
     }
 
     @Test
+    public void itDeterminesToSendRequestedResourceWhenPresent() throws Exception {
+        assertEquals(request.getResource(), ResponseBuilder.determineResourceToSend("200 OK", request.getResource()));
+    }
+
+    @Test
+    public void itDeterminesToSend404WhenRequestedResourceMissing() throws Exception {
+        assertEquals("404.html", ResponseBuilder.determineResourceToSend("404 Not Found", request.getResource()));
+    }
+
+    @Test
     public void itGeneratesBodyDataFromPresentResource() throws Exception {
         assertArrayEquals("Good morning, world!".getBytes(), ResponseBuilder.generateBodyData("spec", "/mock.html"));
     }

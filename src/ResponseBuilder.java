@@ -15,14 +15,8 @@ public class ResponseBuilder {
         response.setStatus(status);
         response.setBody(handler.getResourceString());
 
-        byte[] bodyData;
-        if (status.equals("200 OK")) {
-            bodyData = generateBodyData(directory, request.getResource());
-        }
-        else {
-            bodyData = generateBodyData(directory, "404.html");
-        }
-        response.setBodyData(bodyData);
+        String resourceToSend = determineResourceToSend(status, request.getResource());
+        response.setBodyData(generateBodyData(directory, resourceToSend));
 
         return response;
     }
@@ -32,6 +26,14 @@ public class ResponseBuilder {
             return "200 OK";
         } else {
             return "404 Not Found";
+        }
+    }
+
+    public static String determineResourceToSend(String status, String resource) {
+        if (status.equals("200 OK")) {
+            return resource;
+        } else {
+            return "404.html";
         }
     }
 
