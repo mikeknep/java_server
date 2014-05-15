@@ -26,16 +26,6 @@ public class ResponseBuilderTest {
     }
 
     @Test
-    public void itBuildsResponse() throws Exception {
-        Response response = new Response();
-        response.setVersion("HTTP/1.1");
-        response.setStatus("200 OK");
-        response.setBody("Good morning, world!");
-
-        assertEquals(response.getBody(), ResponseBuilder.buildResponse(directory, request).getBody());
-    }
-
-    @Test
     public void itGeneratesBodyDataFromPresentResource() throws Exception {
         assertArrayEquals("Good morning, world!".getBytes(), ResponseBuilder.generateBodyData("spec", "/mock.html"));
     }
@@ -44,6 +34,8 @@ public class ResponseBuilderTest {
     public void itGeneratesBodyDataFrom404ForMissingResource() throws Exception {
         assertArrayEquals("Oh no! 404!".getBytes(), ResponseBuilder.generateBodyData("spec", "/404.html"));
     }
+
+
 
     @Test
     public void itBuilds500Response() throws Exception {
