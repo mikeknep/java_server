@@ -3,9 +3,6 @@
  */
 public class RequestBuilder {
     public static Request buildRequest(String rawRequest) throws Exception {
-        if (rawRequest.equals("")) {
-            throw new PhantomRequestException();
-        }
         Request request = new Request();
 
         String requestLine = parseRequestLine(rawRequest);

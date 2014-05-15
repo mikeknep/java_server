@@ -27,6 +27,10 @@ public class Listener {
             logger.log(line);
         }
 
-        return builder.toString();
+        if (builder.toString().equals("")) {
+            throw new PhantomRequestException();
+        } else {
+            return builder.toString();
+        }
     }
 }
