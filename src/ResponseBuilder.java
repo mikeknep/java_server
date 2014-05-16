@@ -10,14 +10,10 @@ public class ResponseBuilder {
         Response response = new Response();
 
         response.setVersion(request.getVersion());
-        String status = generateStatus(directory, request.getResource());
-        response.setStatus(status);
-
-        String resourceToSend = determineResourceToSend(status, request.getResource());
-        response.setBody(generateBodyData(directory, resourceToSend));
-
+        response.setStatus(generateStatus(directory, request.getResource()));
+        response.setBody(generateBody(directory, request.getResource()));
         response.setHeader("Content-Length", String.valueOf(response.getBody().length));
-        response.setHeader("Content-Type", determineContentType(directory, resourceToSend));
+        response.setHeader("Content-Type", determineContentType(directory, request.getResource()));
 
         return response;
     }
@@ -30,20 +26,24 @@ public class ResponseBuilder {
         }
     }
 
-    public static String determineResourceToSend(String status, String resource) {
-        if (status.equals("200 OK")) {
-            return resource;
-        } else {
-            return "/404.html";
+    public static byte[] generateBody(String directory, String resource) throws Exception {
+        if (ResourceLocator.resourceIsPresent(directory, resource)) {
+            return Files.readAllBytes(Paths.get(directory + resource));
+        }
+        else if (ResourceLocator.resourceIsPresent(directory, "/404.html")) {
+            return Files.readAllBytes(Paths.get(directory + "/404.html"));
+        }
+        else {
+            return "404".getBytes();
         }
     }
 
-    public static byte[] generateBodyData(String directory, String resource) throws Exception {
-        return Files.readAllBytes(Paths.get(directory + resource));
-    }
-
     public static String determineContentType(String directory, String resource) throws Exception {
-        return URLConnection.guessContentTypeFromName(directory + resource);
+        if (ResourceLocator.resourceIsPresent(directory, resource)) {
+            return URLConnection.guessContentTypeFromName(directory + resource);
+        } else {
+            return "text/html";
+        }
     }
 
 
@@ -53,7 +53,7 @@ public class ResponseBuilder {
 
         response.setVersion("HTTP/1.1");
         response.setStatus("500 Internal Server Error");
-        response.setBody(generateBodyData(directory, "/500.html"));
+        response.setBody(generateBody(directory, "/500.html"));
 
         return response;
     }

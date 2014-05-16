@@ -26,47 +26,33 @@ public class ResponseBuilderTest {
     }
 
     @Test
-    public void itDeterminesToSendRequestedResourceWhenPresent() throws Exception {
-        assertEquals(request.getResource(), ResponseBuilder.determineResourceToSend("200 OK", request.getResource()));
-    }
-
-    @Test
-    public void itDeterminesToSend404WhenRequestedResourceMissing() throws Exception {
-        assertEquals("/404.html", ResponseBuilder.determineResourceToSend("404 Not Found", request.getResource()));
-    }
-
-    @Test
-    public void itGeneratesBodyDataFromPresentResource() throws Exception {
-        assertArrayEquals("Good morning, world!".getBytes(), ResponseBuilder.generateBodyData("spec", "/sample_files/mock.html"));
-    }
-
-    @Test
-    public void itGeneratesBodyDataFrom404ForMissingResource() throws Exception {
-        assertArrayEquals("Oh no! 404!".getBytes(), ResponseBuilder.generateBodyData("spec", "/sample_files/404.html"));
-    }
-
-    @Test
     public void itDeterminesContentTypeOfHTMLFile() throws Exception {
-        String resource = "/sample_files/mock.html";
-        assertEquals("text/html", ResponseBuilder.determineContentType("spec", resource));
-    }
-
-    @Test
-    public void itDeterminesContentTypeOfPNG() throws Exception {
-        String resource = "/sample_files/controls.png";
-        assertEquals("image/png", ResponseBuilder.determineContentType("spec", resource));
+        assertEquals("text/html", ResponseBuilder.determineContentType("spec/sample_files", "/mock.html"));
     }
 
     @Test
     public void itDeterminesContentTypeOfGIF() throws Exception {
-        String resource = "/sample_files/loading.gif";
-        assertEquals("image/gif", ResponseBuilder.determineContentType("spec", resource));
+        assertEquals("image/gif", ResponseBuilder.determineContentType("spec/sample_files", "/mock.gif"));
     }
 
     @Test
     public void itDeterminesContentTypeOfJPEG() throws Exception {
-        String resource = "/sample_files/stop_symbol.jpeg";
-        assertEquals("image/jpeg", ResponseBuilder.determineContentType("spec", resource));
+        assertEquals("image/jpeg", ResponseBuilder.determineContentType("spec/sample_files", "/mock.jpg"));
+    }
+
+    @Test
+    public void itReturnsResourceByteArrayWhenPresent() throws Exception {
+        assertArrayEquals("Good morning, world!".getBytes(), ResponseBuilder.generateBody("spec/sample_files", "/mock.html"));
+    }
+
+    @Test
+    public void itReturns404ByteArrayWhenResourceMissingBut404Present() throws Exception {
+        assertArrayEquals("Oh no! 404!".getBytes(), ResponseBuilder.generateBody("spec/sample_files", "/not_here.html"));
+    }
+
+    @Test
+    public void itReturnsUltraBasic404WhenResourceAnd404Missing() throws Exception {
+        assertArrayEquals("404".getBytes(), ResponseBuilder.generateBody("spec", "/not_here.html"));
     }
 
 
