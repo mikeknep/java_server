@@ -30,11 +30,17 @@ public class ResponseBuilder {
         if (ResourceLocator.resourceIsPresent(directory, resource)) {
             return Files.readAllBytes(Paths.get(directory + resource));
         }
-        else if (ResourceLocator.resourceIsPresent(directory, "/404.html")) {
-            return Files.readAllBytes(Paths.get(directory + "/404.html"));
-        }
         else {
-            return "404".getBytes();
+            return generateErrorBody(directory, "404");
+        }
+    }
+
+    public static byte[] generateErrorBody(String directory, String error) throws Exception {
+        String errorResource = "/" + error + ".html";
+        if (ResourceLocator.resourceIsPresent(directory, errorResource)) {
+            return Files.readAllBytes(Paths.get(directory + errorResource));
+        } else {
+            return error.getBytes();
         }
     }
 
@@ -53,7 +59,7 @@ public class ResponseBuilder {
 
         response.setVersion("HTTP/1.1");
         response.setStatus("500 Internal Server Error");
-        response.setBody(generateBody(directory, "/500.html"));
+        response.setBody(generateErrorBody(directory, "500"));
 
         return response;
     }
