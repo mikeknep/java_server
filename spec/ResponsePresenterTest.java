@@ -28,6 +28,6 @@ public class ResponsePresenterTest {
     @Test
     public void itGeneratesFullResponseByteArray() {
         byte[] fullResponseByteArray = "HTTP/1.1 200 OK\nContent-Length: 135\nContent-Type: text/html\n\nHello world".getBytes();
-        assertEquals(fullResponseByteArray, ResponsePresenter.generateFullResponseByteArray(response));
+        assertArrayEquals(fullResponseByteArray, ResponsePresenter.generateFullResponseByteArray(response));
     }
 }
