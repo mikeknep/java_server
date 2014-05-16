@@ -9,7 +9,7 @@ public class ResponsePresenter {
         int size = generateStatusLine(response).getBytes().length
                    + generateHeaders(response).getBytes().length
                    + "\n".getBytes().length
-                   + response.getBodyData().length;
+                   + response.getBody().length;
         byte[] responseByteArray = new byte[size];
 
         // add status line
@@ -25,8 +25,8 @@ public class ResponsePresenter {
             responseByteArray[generateStatusLine(response).getBytes().length + generateHeaders(response).getBytes().length + i] = "\n".getBytes()[i];
         }
         // add body
-        for (int i = 0; i < response.getBodyData().length; i++) {
-            responseByteArray[generateStatusLine(response).getBytes().length + generateHeaders(response).getBytes().length + "\n".getBytes().length + i] = response.getBodyData()[i];
+        for (int i = 0; i < response.getBody().length; i++) {
+            responseByteArray[generateStatusLine(response).getBytes().length + generateHeaders(response).getBytes().length + "\n".getBytes().length + i] = response.getBody()[i];
         }
 
         // return byte array

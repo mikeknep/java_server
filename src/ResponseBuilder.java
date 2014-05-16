@@ -14,9 +14,9 @@ public class ResponseBuilder {
         response.setStatus(status);
 
         String resourceToSend = determineResourceToSend(status, request.getResource());
-        response.setBodyData(generateBodyData(directory, resourceToSend));
+        response.setBody(generateBodyData(directory, resourceToSend));
 
-        response.setHeader("Content-Length", String.valueOf(response.getBodyData().length));
+        response.setHeader("Content-Length", String.valueOf(response.getBody().length));
         response.setHeader("Content-Type", determineContentType(directory, resourceToSend));
 
         return response;
@@ -54,7 +54,7 @@ public class ResponseBuilder {
         response.setVersion("HTTP/1.1");
         response.setStatus("500 Internal Server Error");
         String fiveHundred = "<!DOCTYPE html><html><head><title>Dahomey</title></head><body><h1>Now you've done it...</h1><p>You threw a 500. Brutal</p></html>";
-        response.setBodyData(fiveHundred.getBytes());
+        response.setBody(fiveHundred.getBytes());
 
         return response;
     }

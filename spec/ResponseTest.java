@@ -12,7 +12,7 @@ public class ResponseTest {
         response = new Response();
         response.setVersion("HTTP/1.1");
         response.setStatus("200 OK");
-        response.setBodyData("Hello world".getBytes());
+        response.setBody("Hello world".getBytes());
         response.setHeader("Content-Type", "text/html");
     }
 
@@ -27,7 +27,7 @@ public class ResponseTest {
     }
 
     @Test
-    public void itReturnsBodyData() { assertArrayEquals("Hello world".getBytes(), response.getBodyData()); }
+    public void itReturnsBodyData() { assertArrayEquals("Hello world".getBytes(), response.getBody()); }
 
     @Test
     public void itReturnsItsHeaders() {
