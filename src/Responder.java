@@ -1,3 +1,5 @@
+import java.io.DataOutputStream;
+import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
 
@@ -6,8 +8,8 @@ import java.net.Socket;
  */
 public class Responder {
     public static void sendResponse(Response response, Socket socket) throws Exception {
-        String fullResponseString = ResponsePresenter.generateFullResponse(response);
-        PrintWriter outWriter = new PrintWriter(socket.getOutputStream(), true);
-        outWriter.println(fullResponseString);
+        byte[] fullResponseByteArray = ResponsePresenter.generateFullResponseByteArray(response);
+        DataOutputStream out = new DataOutputStream(socket.getOutputStream());
+        out.write(fullResponseByteArray);
     }
 }
