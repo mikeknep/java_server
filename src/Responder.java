@@ -1,6 +1,4 @@
 import java.io.DataOutputStream;
-import java.io.OutputStream;
-import java.io.PrintWriter;
 import java.net.Socket;
 
 /**
