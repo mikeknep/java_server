@@ -6,7 +6,6 @@ import java.util.HashMap;
 public class Response {
     private String version;
     private String status;
-    private String body;
     private byte[] bodyData;
     private HashMap<String, String> headers = new HashMap<String, String>();
 
@@ -23,9 +22,6 @@ public class Response {
     public String getStatus() {
         return this.status;
     }
-
-    public void setBody(String body) { this.body = body; }
-    public String getBody() { return this.body; }
 
     public void setBodyData(byte[] bodyData) { this.bodyData = bodyData; }
     public byte[] getBodyData() { return this.bodyData; }

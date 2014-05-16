@@ -10,7 +10,6 @@ public class ResponsePresenterTest {
         response = new Response();
         response.setVersion("HTTP/1.1");
         response.setStatus("200 OK");
-        response.setBody("Hello world");
         response.setBodyData("Hello world".getBytes());
         response.setHeader("Content-Length", "135");
         response.setHeader("Content-Type", "text/html");
