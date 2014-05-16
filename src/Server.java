@@ -30,7 +30,7 @@ public class Server {
                 socket.close();
             }
             catch (Exception e) {
-                ExceptionHandler.handle(e, socket);
+                ExceptionHandler.handle(e, socket, directory);
                 socket.close();
             }
         }

@@ -74,6 +74,6 @@ public class ResponseBuilderTest {
 
     @Test
     public void itBuilds500Response() throws Exception {
-        assertEquals("500 Internal Server Error", ResponseBuilder.build500Response().getStatus());
+        assertEquals("500 Internal Server Error", ResponseBuilder.build500Response("spec/sample_files").getStatus());
     }
 }

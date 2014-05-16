@@ -48,13 +48,12 @@ public class ResponseBuilder {
 
 
 
-    public static Response build500Response() {
+    public static Response build500Response(String directory) throws Exception {
         Response response = new Response();
 
         response.setVersion("HTTP/1.1");
         response.setStatus("500 Internal Server Error");
-        String fiveHundred = "<!DOCTYPE html><html><head><title>Dahomey</title></head><body><h1>Now you've done it...</h1><p>You threw a 500. Brutal</p></html>";
-        response.setBody(fiveHundred.getBytes());
+        response.setBody(generateBodyData(directory, "/500.html"));
 
         return response;
     }
