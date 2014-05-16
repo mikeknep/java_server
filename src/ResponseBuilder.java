@@ -7,14 +7,11 @@ import java.nio.file.Paths;
  */
 public class ResponseBuilder {
     public static Response buildResponse(String directory, Request request) throws Exception {
-        ResourceHandler handler = new ResourceHandler(directory, request.getResource());
-
         Response response = new Response();
 
         response.setVersion(request.getVersion());
         String status = generateStatus(directory, request.getResource());
         response.setStatus(status);
-        response.setBody(handler.getResourceString());
 
         String resourceToSend = determineResourceToSend(status, request.getResource());
         response.setBodyData(generateBodyData(directory, resourceToSend));
@@ -56,7 +53,8 @@ public class ResponseBuilder {
 
         response.setVersion("HTTP/1.1");
         response.setStatus("500 Internal Server Error");
-        response.setBody("Oh no! 500!");
+        String fiveHundred = "<!DOCTYPE html><html><head><title>Dahomey</title></head><body><h1>Now you've done it...</h1><p>You threw a 500. Brutal</p></html>";
+        response.setBodyData(fiveHundred.getBytes());
 
         return response;
     }
