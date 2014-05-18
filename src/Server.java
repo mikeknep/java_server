@@ -5,7 +5,6 @@ import java.net.Socket;
 * Created by mrk on 5/7/14.
 */
 public class Server {
-    Listener listener = new Listener();
     Logger logger = new Logger();
 
     public static void main(String[] args) throws Exception
@@ -20,10 +19,10 @@ public class Server {
         logger.startupMessage(port, directory);
 
         while (true) {
-            Socket socket = listener.listen(serverSocket);
+            Socket socket = Listener.listen(serverSocket);
 
             try {
-                String rawRequest = listener.collectRawRequest(socket.getInputStream());
+                String rawRequest = Listener.collectRawRequest(socket.getInputStream());
                 Request request = RequestBuilder.buildRequest(rawRequest);
                 Response response = ResponseBuilder.buildResponse(directory, request);
                 Responder.sendResponse(response, socket);

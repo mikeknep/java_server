@@ -10,11 +10,11 @@ import java.util.ArrayList;
  */
 public class Listener {
 
-    public Socket listen(ServerSocket serverSocket) throws Exception {
+    public static Socket listen(ServerSocket serverSocket) throws Exception {
         return serverSocket.accept();
     }
 
-    public String collectRawRequest(InputStream incoming) throws Exception {
+    public static String collectRawRequest(InputStream incoming) throws Exception {
         InputStreamReader isr = new InputStreamReader(incoming);
         BufferedReader br = new BufferedReader(isr);
         StringBuilder builder = new StringBuilder();
