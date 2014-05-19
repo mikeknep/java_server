@@ -1,13 +1,13 @@
 import java.io.DataOutputStream;
-import java.net.Socket;
+import java.io.OutputStream;
 
 /**
  * Created by mrk on 5/14/14.
  */
 public class Responder {
-    public static void sendResponse(Response response, Socket socket) throws Exception {
+    public static void sendResponse(Response response, OutputStream outputStream) throws Exception {
         byte[] fullResponseByteArray = ResponsePresenter.generateFullResponseByteArray(response);
-        DataOutputStream out = new DataOutputStream(socket.getOutputStream());
+        DataOutputStream out = new DataOutputStream(outputStream);
         out.write(fullResponseByteArray);
     }
 }
