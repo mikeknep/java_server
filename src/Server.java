@@ -4,18 +4,25 @@ import java.net.ServerSocket;
 * Created by mrk on 5/7/14.
 */
 public class Server {
+    private int port;
+    private String directory;
+    private ServerSocket serverSocket;
 
     public static void main(String[] args) throws Exception
     {
-        Server server = new Server();
         SettingsConfig config = new SettingsConfig(args);
-        server.run(config.getPort(), config.getDirectory());
+        Server server = new Server(config.getPort(), config.getDirectory());
+        server.run();
     }
 
-    public void run(int port, String directory) throws Exception {
-        ServerSocket serverSocket = new ServerSocket(port);
+    public Server(int port, String directory) throws Exception {
+        this.port = port;
+        this.directory = directory;
+        this.serverSocket = new ServerSocket(port);
         Logger.startupMessage(port, directory);
+    }
 
+    public void run() throws Exception {
         while (true) {
             SocketStreamPair socketStreamPair = new SocketStreamPair(serverSocket);
 
