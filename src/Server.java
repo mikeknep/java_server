@@ -4,7 +4,6 @@ import java.net.ServerSocket;
 * Created by mrk on 5/7/14.
 */
 public class Server {
-    Logger logger = new Logger();
 
     public static void main(String[] args) throws Exception
     {
@@ -15,7 +14,7 @@ public class Server {
 
     public void run(int port, String directory) throws Exception {
         ServerSocket serverSocket = new ServerSocket(port);
-        logger.startupMessage(port, directory);
+        Logger.startupMessage(port, directory);
 
         while (true) {
             SocketStreamPair socketStreamPair = new SocketStreamPair(serverSocket);

@@ -2,15 +2,15 @@
  * Created by mrk on 5/7/14.
  */
 public class Logger {
-    public void log(String message) {
+    public static void log(String message) {
         System.out.println(message);
     }
 
-    public void startupMessage(int port, String directory) {
+    public static void startupMessage(int port, String directory) {
         System.out.println("Server initialized on port " + port + ", serving directory " + directory);
     }
 
-    public void logException(Exception exception, String responseType) {
+    public static void logException(Exception exception, String responseType) {
         String serverResponse;
         if (responseType.equals("ignore")) {
             serverResponse = "Ignored.";

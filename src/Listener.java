@@ -20,11 +20,10 @@ public class Listener {
         StringBuilder builder = new StringBuilder();
 
         String line;
-        Logger logger = new Logger();
 
         while ((line = br.readLine()) != null && !line.equals("")) {
             builder.append(line + "\n");
-            logger.log(line);
+            Logger.log(line);
         }
 
         if (builder.toString().equals("")) {
