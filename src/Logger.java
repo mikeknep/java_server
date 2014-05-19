@@ -6,7 +6,7 @@ public class Logger {
         System.out.println(message);
     }
 
-    public static void startupMessage(int port, String directory) {
+    public static void logStartup(int port, String directory) {
         System.out.println("Server initialized on port " + port + ", serving directory " + directory);
     }
 

@@ -19,7 +19,7 @@ public class Server {
         this.port = port;
         this.directory = directory;
         this.serverSocket = new ServerSocket(port);
-        Logger.startupMessage(port, directory);
+        Logger.logStartup(port, directory);
     }
 
     public void run() throws Exception {
