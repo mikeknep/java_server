@@ -19,23 +19,23 @@ public class RequestBuilder {
         return request;
     }
 
-    public static String parseRequestLine(String rawRequest) {
+    private static String parseRequestLine(String rawRequest) {
         return rawRequest.split("\n", 2)[0];
     }
 
-    public static String parseRequestMethod(String requestLine) {
+    private static String parseRequestMethod(String requestLine) {
         return requestLine.split(" ")[0];
     }
 
-    public static String parseRequestResource(String requestLine) {
+    private static String parseRequestResource(String requestLine) {
         return requestLine.split(" ")[1];
     }
 
-    public static String parseRequestVersion(String requestLine) {
+    private static String parseRequestVersion(String requestLine) {
         return requestLine.split(" ")[2];
     }
 
-    public static String[] parseRequestHeaders(String rawRequest) {
+    private static String[] parseRequestHeaders(String rawRequest) {
         String headers = rawRequest.split("\n", 2)[1];
         return headers.split("\n");
     }
