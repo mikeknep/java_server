@@ -1,65 +1,101 @@
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Arrays;
+
 import static org.junit.Assert.*;
 
 public class ResponseBuilderTest {
-    Request request;
-    String directory;
+    Request goodRequest;
+    Request badRequest;
     @Before
-    public void setUpRequest() {
-        request = new Request();
-        request.setMethod("GET");
-        request.setResource("/sample_files/mock.html");
-        request.setVersion("HTTP/1.1");
-        directory = "spec";
+    public void setUpRequests() {
+        goodRequest = new Request();
+        goodRequest.setMethod("GET");
+        goodRequest.setResource("/mock.html");
+        goodRequest.setVersion("HTTP/1.1");
+
+        badRequest = new Request();
+        badRequest.setMethod("GET");
+        badRequest.setResource("/nonexistent.html");
+        badRequest.setVersion("HTTP/1.1");
     }
 
-    @Test
-    public void itGenerates200Status() {
-        assertEquals("200 OK", ResponseBuilder.generateStatus(directory, request.getResource()));
-    }
-
-    @Test
-    public void itGenerates404Status() {
-        assertEquals("404 Not Found", ResponseBuilder.generateStatus("nonexistent/directory", request.getResource()));
-    }
-
-    @Test
-    public void itDeterminesContentTypeOfHTMLFile() throws Exception {
-        assertEquals("text/html", ResponseBuilder.determineContentType("spec/sample_files", "/mock.html"));
-    }
-
-    @Test
-    public void itDeterminesContentTypeOfGIF() throws Exception {
-        assertEquals("image/gif", ResponseBuilder.determineContentType("spec/sample_files", "/mock.gif"));
-    }
-
-    @Test
-    public void itDeterminesContentTypeOfJPEG() throws Exception {
-        assertEquals("image/jpeg", ResponseBuilder.determineContentType("spec/sample_files", "/mock.jpg"));
-    }
-
-    @Test
-    public void itReturnsResourceByteArrayWhenPresent() throws Exception {
-        assertArrayEquals("Good morning, world!".getBytes(), ResponseBuilder.generateBody("spec/sample_files", "/mock.html"));
-    }
-
-    @Test
-    public void itReturns404ByteArrayWhenResourceMissingBut404Present() throws Exception {
-        assertArrayEquals("Oh no! 404!".getBytes(), ResponseBuilder.generateBody("spec/sample_files", "/not_here.html"));
-    }
-
-    @Test
-    public void itReturnsUltraBasic404WhenResourceAnd404Missing() throws Exception {
-        assertArrayEquals("404".getBytes(), ResponseBuilder.generateBody("spec", "/not_here.html"));
+    public boolean responsesAreEquivalent(Response testResponse, Response builtResponse) {
+        return (testResponse.getVersion().equals(builtResponse.getVersion()) &&
+                testResponse.getStatus().equals(builtResponse.getStatus()) &&
+                testResponse.getHeaders().equals(builtResponse.getHeaders()) &&
+                Arrays.equals(testResponse.getBody(), builtResponse.getBody()));
     }
 
 
+    @Test
+    public void itBuilds200Response() throws Exception {
+        Response testResponse = new Response();
+        testResponse.setVersion("HTTP/1.1");
+        testResponse.setStatus("200 OK");
+        testResponse.setBody("Good morning, world!".getBytes());
+        testResponse.setHeader("Content-Length", String.valueOf("Good morning, world!".getBytes().length));
+        testResponse.setHeader("Content-Type", "text/html");
 
+        Response builtResponse = ResponseBuilder.buildResponse("spec/sample_files", goodRequest);
+
+        assertTrue(responsesAreEquivalent(testResponse, builtResponse));
+    }
 
     @Test
-    public void itBuilds500Response() throws Exception {
-        assertEquals("500 Internal Server Error", ResponseBuilder.build500Response("spec/sample_files").getStatus());
+    public void itBuilds404ResponseWithResource() throws Exception {
+        Response testResponse = new Response();
+        testResponse.setVersion("HTTP/1.1");
+        testResponse.setStatus("404 Not Found");
+        testResponse.setBody("Oh no! 404!".getBytes());
+        testResponse.setHeader("Content-Length", String.valueOf("Oh no! 404!".getBytes().length));
+        testResponse.setHeader("Content-Type", "text/html");
+
+        Response builtResponse = ResponseBuilder.buildResponse("spec/sample_files", badRequest);
+
+        assertTrue(responsesAreEquivalent(testResponse, builtResponse));
+    }
+
+    @Test
+    public void itBuilds404ResponseWithoutResource() throws Exception {
+        Response testResponse = new Response();
+        testResponse.setVersion("HTTP/1.1");
+        testResponse.setStatus("404 Not Found");
+        testResponse.setBody("404".getBytes());
+        testResponse.setHeader("Content-Length", String.valueOf("404".getBytes().length));
+        testResponse.setHeader("Content-Type", "text/html");
+
+        Response builtResponse = ResponseBuilder.buildResponse("spec", badRequest);
+
+        assertTrue(responsesAreEquivalent(testResponse, builtResponse));
+    }
+
+    @Test
+    public void itBuilds500ResponseWithResource() throws Exception {
+        Response testResponse = new Response();
+        testResponse.setVersion("HTTP/1.1");
+        testResponse.setStatus("500 Internal Server Error");
+        testResponse.setBody("Uh oh. 500!".getBytes());
+        testResponse.setHeader("Content-Length", String.valueOf("Uh oh. 500!".getBytes().length));
+        testResponse.setHeader("Content-Type", "text/html");
+
+        Response builtResponse = ResponseBuilder.build500Response("spec/sample_files");
+
+        assertTrue(responsesAreEquivalent(testResponse, builtResponse));
+    }
+
+    @Test
+    public void itBuilds500ResponseWithoutResource() throws Exception {
+        Response testResponse = new Response();
+        testResponse.setVersion("HTTP/1.1");
+        testResponse.setStatus("500 Internal Server Error");
+        testResponse.setBody("500".getBytes());
+        testResponse.setHeader("Content-Length", String.valueOf("500".getBytes().length));
+        testResponse.setHeader("Content-Type", "text/html");
+
+        Response builtResponse = ResponseBuilder.build500Response("spec");
+
+        assertTrue(responsesAreEquivalent(testResponse, builtResponse));
     }
 }

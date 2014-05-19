@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.net.URLConnection;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -18,7 +19,20 @@ public class ResponseBuilder {
         return response;
     }
 
-    public static String generateStatus(String directory, String resource) {
+    public static Response build500Response(String directory) throws Exception {
+        Response response = new Response();
+
+        response.setVersion("HTTP/1.1");
+        response.setStatus("500 Internal Server Error");
+        response.setBody(generateErrorBody(directory, "500"));
+        response.setHeader("Content-Length", String.valueOf(response.getBody().length));
+        response.setHeader("Content-Type", "text/html");
+
+        return response;
+    }
+
+
+    private static String generateStatus(String directory, String resource) {
         if (ResourceLocator.resourceIsPresent(directory, resource)) {
             return "200 OK";
         } else {
@@ -26,41 +40,27 @@ public class ResponseBuilder {
         }
     }
 
-    public static byte[] generateBody(String directory, String resource) throws Exception {
-        if (ResourceLocator.resourceIsPresent(directory, resource)) {
+    private static byte[] generateBody(String directory, String resource) {
+        try {
             return Files.readAllBytes(Paths.get(directory + resource));
-        }
-        else {
+        } catch (IOException e) {
             return generateErrorBody(directory, "404");
         }
     }
 
-    public static byte[] generateErrorBody(String directory, String error) throws Exception {
-        String errorResource = "/" + error + ".html";
-        if (ResourceLocator.resourceIsPresent(directory, errorResource)) {
-            return Files.readAllBytes(Paths.get(directory + errorResource));
-        } else {
+    private static byte[] generateErrorBody(String directory, String error) {
+        try {
+            return Files.readAllBytes(Paths.get(directory + "/" + error + ".html"));
+        } catch (IOException e) {
             return error.getBytes();
         }
     }
 
-    public static String determineContentType(String directory, String resource) throws Exception {
+    private static String determineContentType(String directory, String resource) throws Exception {
         if (ResourceLocator.resourceIsPresent(directory, resource)) {
             return URLConnection.guessContentTypeFromName(directory + resource);
         } else {
             return "text/html";
         }
-    }
-
-
-
-    public static Response build500Response(String directory) throws Exception {
-        Response response = new Response();
-
-        response.setVersion("HTTP/1.1");
-        response.setStatus("500 Internal Server Error");
-        response.setBody(generateErrorBody(directory, "500"));
-
-        return response;
     }
 }
