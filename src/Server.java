@@ -27,7 +27,7 @@ public class Server {
             SocketStreamPair socketStreamPair = new SocketStreamPair(serverSocket);
 
             try {
-                String rawRequest = Listener.collectRawRequest(socketStreamPair.getIn());
+                String rawRequest = Listener.receiveRawRequest(socketStreamPair.getIn());
                 Request request = RequestBuilder.buildRequest(rawRequest);
                 Response response = ResponseBuilder.buildResponse(directory, request);
                 Responder.sendResponse(response, socketStreamPair.getOut());

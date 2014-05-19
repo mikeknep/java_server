@@ -9,11 +9,10 @@ import java.util.ArrayList;
  * Created by mrk on 5/6/14.
  */
 public class Listener {
-    public static String collectRawRequest(InputStream incoming) throws Exception {
+    public static String receiveRawRequest(InputStream incoming) throws Exception {
         InputStreamReader isr = new InputStreamReader(incoming);
         BufferedReader br = new BufferedReader(isr);
         StringBuilder builder = new StringBuilder();
-
         String line;
 
         while ((line = br.readLine()) != null && !line.equals("")) {
