@@ -23,9 +23,17 @@ public class Response {
         return this.status;
     }
 
-    public void setBody(byte[] body) { this.body = body; }
-    public byte[] getBody() { return this.body; }
+    public void setBody(byte[] body) {
+        this.body = body;
+    }
+    public byte[] getBody() {
+        return this.body;
+    }
 
-    public void setHeader(String key, String value) { this.headers.put(key, value); }
-    public HashMap<String, String> getHeaders() { return this.headers; }
+    public void setHeader(String key, String value) {
+        this.headers.put(key, value);
+    }
+    public HashMap<String, String> getHeaders() {
+        return this.headers;
+    }
 }

@@ -27,7 +27,9 @@ public class ResponseTest {
     }
 
     @Test
-    public void itReturnsBodyData() { assertArrayEquals("Hello world".getBytes(), response.getBody()); }
+    public void itReturnsBodyData() {
+        assertArrayEquals("Hello world".getBytes(), response.getBody());
+    }
 
     @Test
     public void itReturnsItsHeaders() {
