@@ -9,11 +9,6 @@ import java.util.ArrayList;
  * Created by mrk on 5/6/14.
  */
 public class Listener {
-
-    public static Socket listen(ServerSocket serverSocket) throws Exception {
-        return serverSocket.accept();
-    }
-
     public static String collectRawRequest(InputStream incoming) throws Exception {
         InputStreamReader isr = new InputStreamReader(incoming);
         BufferedReader br = new BufferedReader(isr);
