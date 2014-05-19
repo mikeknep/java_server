@@ -37,43 +37,43 @@ public class SettingsConfigTest {
     @Test
     public void testPortTooLow() {
         String[] badArgs = {"-p", "90"};
-        SettingsConfig badCongig = new SettingsConfig(badArgs);
-        assertEquals(1961, badCongig.getPort());
+        SettingsConfig badConfig = new SettingsConfig(badArgs);
+        assertEquals(1961, badConfig.getPort());
     }
 
     @Test
     public void testPortTooLarge() {
         String[] badArgs = {"-p", "888888"};
-        SettingsConfig badCongig = new SettingsConfig(badArgs);
-        assertEquals(1961, badCongig.getPort());
+        SettingsConfig badConfig = new SettingsConfig(badArgs);
+        assertEquals(1961, badConfig.getPort());
     }
 
     @Test
     public void testPortFlagNoValue() {
         String[] badArgs = {"-p"};
-        SettingsConfig badCongig = new SettingsConfig(badArgs);
-        assertEquals(1961, badCongig.getPort());
+        SettingsConfig badConfig = new SettingsConfig(badArgs);
+        assertEquals(1961, badConfig.getPort());
     }
 
     @Test
     public void testPortNotInteger() {
         String[] badArgs = {"-p", "NotAnInteger"};
-        SettingsConfig badCongig = new SettingsConfig(badArgs);
-        assertEquals(1961, badCongig.getPort());
+        SettingsConfig badConfig = new SettingsConfig(badArgs);
+        assertEquals(1961, badConfig.getPort());
     }
 
     @Test
     public void testMultiplePortFlags() {
         String[] badArgs = {"-p", "-p", "5000"};
-        SettingsConfig badCongig = new SettingsConfig(badArgs);
-        assertEquals(1961, badCongig.getPort());
+        SettingsConfig badConfig = new SettingsConfig(badArgs);
+        assertEquals(1961, badConfig.getPort());
     }
 
     @Test
     public void testMultiplePortFlagsDifferentOrder() {
         String[] badArgs = {"-p", "3000", "-p", "4000"};
-        SettingsConfig badCongig = new SettingsConfig(badArgs);
-        assertEquals(3000, badCongig.getPort());
+        SettingsConfig badConfig = new SettingsConfig(badArgs);
+        assertEquals(3000, badConfig.getPort());
     }
 
 
@@ -83,21 +83,21 @@ public class SettingsConfigTest {
     @Test
     public void testDirectoryFlagNoValue() {
         String[] badArgs = {"-d"};
-        SettingsConfig badCongig = new SettingsConfig(badArgs);
-        assertEquals("public", badCongig.getDirectory());
+        SettingsConfig badConfig = new SettingsConfig(badArgs);
+        assertEquals("public", badConfig.getDirectory());
     }
 
     @Test
     public void testMultipleDirectoryFlags() {
         String[] badArgs = {"-d", "-d", "some/directory"};
-        SettingsConfig badCongig = new SettingsConfig(badArgs);
-        assertEquals("public", badCongig.getDirectory());
+        SettingsConfig badConfig = new SettingsConfig(badArgs);
+        assertEquals("public", badConfig.getDirectory());
     }
 
     @Test
     public void testMultipleDirectoryFlagsDifferentOrder() {
         String[] badArgs = {"-d", "some/dir", "-d", "other/directory"};
-        SettingsConfig badCongig = new SettingsConfig(badArgs);
-        assertEquals("some/dir", badCongig.getDirectory());
+        SettingsConfig badConfig = new SettingsConfig(badArgs);
+        assertEquals("some/dir", badConfig.getDirectory());
     }
 }
