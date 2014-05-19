@@ -33,11 +33,12 @@ public class ResponsePresenter {
         return responseByteArray;
     }
 
-    public static String generateStatusLine(Response response) {
+
+    private static String generateStatusLine(Response response) {
         return (response.getVersion() + " " + response.getStatus() + "\n");
     }
 
-    public static String generateHeaders(Response response) {
+    private static String generateHeaders(Response response) {
         StringBuilder builder = new StringBuilder();
 
         for(Map.Entry<String, String> header : response.getHeaders().entrySet()) {
