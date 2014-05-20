@@ -12,13 +12,16 @@ public class ResponsePresenter {
             responseByteArray[i] = statusBytes(response)[i];
         }
         for (int i = 0; i < headersSize(response); i++) {
-            responseByteArray[statusSize(response) + i] = headersBytes(response)[i];
+            int offset = statusSize(response);
+            responseByteArray[offset + i] = headersBytes(response)[i];
         }
         for (int i = 0; i < newlineSize(); i++) {
-            responseByteArray[statusSize(response) + headersSize(response) + i] = newlineBytes()[i];
+            int offset = statusSize(response) + headersSize(response);
+            responseByteArray[offset + i] = newlineBytes()[i];
         }
         for (int i = 0; i < bodySize(response); i++) {
-            responseByteArray[statusSize(response) + headersSize(response) + newlineSize() + i] = bodyBytes(response)[i];
+            int offset = statusSize(response) + headersSize(response) + newlineSize();
+            responseByteArray[offset + i] = bodyBytes(response)[i];
         }
 
         return responseByteArray;
