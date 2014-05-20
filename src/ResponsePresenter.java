@@ -5,33 +5,25 @@ import java.util.Map;
  */
 public class ResponsePresenter {
     public static byte[] generateFullResponseByteArray(Response response) {
-        // determine size of full byte[] response and initialize
-        int size = generateStatusLine(response).getBytes().length
-                   + generateHeaders(response).getBytes().length
-                   + "\n".getBytes().length
-                   + response.getBody().length;
+        int size = statusSize(response) + headersSize(response) + newlineSize() + bodySize(response);
         byte[] responseByteArray = new byte[size];
 
-        // add status line
-        for (int i = 0; i < generateStatusLine(response).getBytes().length; i++) {
-            responseByteArray[i] = generateStatusLine(response).getBytes()[i];
+        for (int i = 0; i < statusSize(response); i++) {
+            responseByteArray[i] = statusBytes(response)[i];
         }
-        // add headers
-        for (int i = 0; i < generateHeaders(response).getBytes().length; i++) {
-            responseByteArray[generateStatusLine(response).getBytes().length + i] = generateHeaders(response).getBytes()[i];
+        for (int i = 0; i < headersSize(response); i++) {
+            responseByteArray[statusSize(response) + i] = headersBytes(response)[i];
         }
-        // add blank line
-        for (int i = 0; i < "\n".getBytes().length; i++) {
-            responseByteArray[generateStatusLine(response).getBytes().length + generateHeaders(response).getBytes().length + i] = "\n".getBytes()[i];
+        for (int i = 0; i < newlineSize(); i++) {
+            responseByteArray[statusSize(response) + headersSize(response) + i] = newlineBytes()[i];
         }
-        // add body
-        for (int i = 0; i < response.getBody().length; i++) {
-            responseByteArray[generateStatusLine(response).getBytes().length + generateHeaders(response).getBytes().length + "\n".getBytes().length + i] = response.getBody()[i];
+        for (int i = 0; i < bodySize(response); i++) {
+            responseByteArray[statusSize(response) + headersSize(response) + newlineSize() + i] = bodyBytes(response)[i];
         }
 
-        // return byte array
         return responseByteArray;
     }
+
 
 
     private static String generateStatusLine(Response response) {
@@ -46,5 +38,37 @@ public class ResponsePresenter {
         }
 
         return builder.toString();
+    }
+
+    private static byte[] statusBytes(Response response) {
+        return generateStatusLine(response).getBytes();
+    }
+
+    private static byte[] headersBytes(Response response) {
+        return generateHeaders(response).getBytes();
+    }
+
+    private static byte[] newlineBytes() {
+        return "\n".getBytes();
+    }
+
+    private static byte[] bodyBytes(Response response) {
+        return response.getBody();
+    }
+
+    private static int statusSize(Response response) {
+        return statusBytes(response).length;
+    }
+
+    private static int headersSize(Response response) {
+        return headersBytes(response).length;
+    }
+
+    private static int newlineSize() {
+        return newlineBytes().length;
+    }
+
+    private static int bodySize(Response response) {
+        return bodyBytes(response).length;
     }
 }
