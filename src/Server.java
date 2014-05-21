@@ -29,7 +29,8 @@ public class Server {
             try {
                 String rawRequest = Listener.receiveRawRequest(socketStreamPair.getIn());
                 Request request = RequestBuilder.buildRequest(rawRequest);
-                Response response = ResponseBuilder.buildResponse(directory, request);
+                Builder builder = Dispatcher.setBuilder(directory, request);
+                Response response = builder.buildResponse();
                 Responder.sendResponse(response, socketStreamPair.getOut());
             }
             catch (Exception e) {
