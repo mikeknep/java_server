@@ -31,10 +31,16 @@ public class DirectoryResponseBuilder implements ResponseBuilder {
         StringBuilder builder = new StringBuilder();
         File[] files = resourcePath.toFile().listFiles();
 
+        builder.append("<ul>");
         for (File file : files) {
-            builder.append(file.getName() + "\n");
+            builder.append("<li>" + "<a href=\"" + getRelativePath(file) + "\">" + file.getName() + "</a>" + "</li>");
         }
+        builder.append("</ul>");
 
         return builder.toString().getBytes();
+    }
+
+    private String getRelativePath(File file) {
+        return file.getPath().split(rootDirectory)[1];
     }
 }
