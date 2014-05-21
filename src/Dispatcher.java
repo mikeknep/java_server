@@ -6,7 +6,7 @@ import java.nio.file.Paths;
  * Created by mrk on 5/21/14.
  */
 public class Dispatcher {
-    public static Builder setBuilder(String directory, Request request) {
+    public static ResponseBuilder setResponseBuilder(String directory, Request request) {
         Path path = Paths.get(directory, request.getResource());
         if (Files.isDirectory(path)) {
             return new DirectoryResponseBuilder(directory, request.getResource());

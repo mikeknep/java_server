@@ -5,7 +5,7 @@ import java.nio.file.Paths;
 /**
  * Created by mrk on 5/21/14.
  */
-public class DirectoryResponseBuilder implements Builder {
+public class DirectoryResponseBuilder implements ResponseBuilder {
     private String rootDirectory;
     private String requestedResource;
     private Path resourcePath;
