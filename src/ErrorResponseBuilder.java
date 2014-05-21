@@ -6,7 +6,7 @@ import java.nio.file.Paths;
 /**
  * Created by mrk on 5/21/14.
  */
-public class ErrorResponseBuilder {
+public class ErrorResponseBuilder implements Builder {
     private String rootDirectory;
     private int errorCode;
     private Path errorResourcePath;
