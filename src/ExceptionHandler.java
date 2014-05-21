@@ -8,7 +8,8 @@ public class ExceptionHandler {
         if (exception instanceof PhantomRequestException) {
             Logger.logException(exception, "ignore");
         } else {
-            Response response500 = ResponseBuilder.build500Response(directory);
+            ErrorResponseBuilder builder = new ErrorResponseBuilder(directory, 500);
+            Response response500 = builder.buildResponse();
             Responder.sendResponse(response500, outputStream);
             Logger.logException(exception, "500");
         }
