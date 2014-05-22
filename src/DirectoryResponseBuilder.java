@@ -33,7 +33,7 @@ public class DirectoryResponseBuilder implements ResponseBuilder {
 
         builder.append("<ul>");
         for (File file : files) {
-            builder.append("<li>" + "<a href=\"" + getRelativePath(file) + "\">" + file.getName() + "</a>" + "</li>");
+            builder.append("<li>" + "<a href=\"/" + getRelativePath(file) + "\">" + file.getName() + "</a>" + "</li>");
         }
         builder.append("</ul>");
 
