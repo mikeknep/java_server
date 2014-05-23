@@ -32,6 +32,7 @@ public class Server {
                 ResponseBuilder responseBuilder = Dispatcher.setResponseBuilder(directory, request);
                 Response response = responseBuilder.buildResponse();
                 Responder.sendResponse(response, socketStreamPair.getOut());
+                Logger.logBasic(request, response, socketStreamPair.getSocketOpenTime());
             }
             catch (Exception e) {
                 ExceptionHandler.handle(e, socketStreamPair.getOut(), directory);

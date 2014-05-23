@@ -1,9 +1,6 @@
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.util.ArrayList;
 
 /**
  * Created by mrk on 5/6/14.
@@ -17,7 +14,6 @@ public class Listener {
 
         while ((line = br.readLine()) != null && !line.equals("")) {
             builder.append(line + "\n");
-            Logger.log(line);
         }
 
         if (builder.toString().equals("")) {
