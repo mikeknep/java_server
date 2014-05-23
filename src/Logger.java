@@ -1,3 +1,5 @@
+import java.util.Date;
+
 /**
  * Created by mrk on 5/7/14.
  */
@@ -21,5 +23,9 @@ public class Logger {
         }
 
         System.out.println("Exception caught: " + exception + ". " + serverResponse);
+    }
+
+    public static void logBasic(Request request, Response response, Date timeOfRequest) {
+        System.out.println(timeOfRequest.toString() + " '" + request.getMethod() + " " + request.getResource() + " " + request.getVersion() + "' " + response.getStatus());
     }
 }

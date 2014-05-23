@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.util.Date;
 
 import static org.junit.Assert.*;
 
@@ -46,5 +47,22 @@ public class LoggerTest {
         Logger.logException(new Exception(), "500");
 
         assertTrue(output.toString().contains("500"));
+    }
+
+    @Test
+    public void itLogsRequestResponseTransaction() {
+        Request request = new Request();
+        request.setMethod("GET");
+        request.setResource("/mock.html");
+        request.setVersion("HTTP/1.1");
+
+        Response response = new Response();
+        response.setStatus("200 OK");
+
+        Date socketOpenTime = new Date();
+
+        Logger.logBasic(request, response, socketOpenTime);
+
+        assertEquals(socketOpenTime.toString() + " 'GET /mock.html HTTP/1.1' 200 OK\n", output.toString());
     }
 }
