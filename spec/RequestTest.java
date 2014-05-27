@@ -15,6 +15,7 @@ public class RequestTest {
         String version = "HTTP/1.1";
         HashMap<String, String> headers = new HashMap<String, String>();
         headers.put("Content-Type", "text/html");
+        headers.put("Accept-Ranges", "135");
 
         request = new Request(method, resource, version, headers);
     }
@@ -35,7 +36,15 @@ public class RequestTest {
     }
 
     @Test
-    public void itSetsHeadersAndReturnsSingleHeader() {
+    public void itReturnsAllHeaders() {
+        HashMap<String, String> expectedHeaders = new HashMap<String, String>();
+        expectedHeaders.put("Content-Type", "text/html");
+        expectedHeaders.put("Accept-Ranges", "135");
+        assertEquals(expectedHeaders, request.getHeaders());
+    }
+
+    @Test
+    public void itReturnsSingleHeader() {
         assertEquals("text/html", request.getHeader("Content-Type"));
     }
 

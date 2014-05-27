@@ -29,6 +29,10 @@ public class Request {
         return this.version;
     }
 
+    public HashMap<String, String> getHeaders() {
+        return this.headers;
+    }
+
     public String getHeader(String key) {
         return this.headers.get(key);
     }
