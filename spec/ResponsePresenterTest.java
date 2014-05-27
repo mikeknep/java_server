@@ -6,7 +6,7 @@ import static org.junit.Assert.*;
 
 public class ResponsePresenterTest {
     @Test
-    public void itGeneratesFullResponseByteArray() {
+    public void itPresentsFullResponseByteArray() {
         String version = "HTTP/1.1";
         String status = "200 OK";
         byte[] body = "Hello world".getBytes();
@@ -17,6 +17,6 @@ public class ResponsePresenterTest {
 
         byte[] expectedFullResponseByteArray = "HTTP/1.1 200 OK\nContent-Length: 135\nContent-Type: text/html\n\nHello world".getBytes();
 
-        assertArrayEquals(expectedFullResponseByteArray, ResponsePresenter.generateFullResponseByteArray(response));
+        assertArrayEquals(expectedFullResponseByteArray, ResponsePresenter.presentFullResponseByteArray(response));
     }
 }

@@ -24,7 +24,7 @@ public class ErrorResponseBuilder implements ResponseBuilder {
         byte[] body = generateErrorBody();
         HashMap<String, String> headers = new HashMap<String, String>();
         headers.put("Content-Length", String.valueOf(body.length));
-        headers.put("Content-Type", contentType());
+        headers.put("Content-Type", determineContentType());
 
         return new Response(version, status, body, headers);
     }
@@ -47,7 +47,7 @@ public class ErrorResponseBuilder implements ResponseBuilder {
         }
     }
 
-    private String contentType() {
+    private String determineContentType() {
         if (Files.exists(errorResourcePath)) {
             return "text/html";
         } else {

@@ -4,7 +4,7 @@ import java.util.Map;
  * Created by mrk on 5/13/14.
  */
 public class ResponsePresenter {
-    public static byte[] generateFullResponseByteArray(Response response) {
+    public static byte[] presentFullResponseByteArray(Response response) {
         int size = statusSize(response) + headersSize(response) + newlineSize() + bodySize(response);
         byte[] responseByteArray = new byte[size];
 
@@ -29,11 +29,11 @@ public class ResponsePresenter {
 
 
 
-    private static String generateStatusLine(Response response) {
+    private static String formatStatusLine(Response response) {
         return (response.getVersion() + " " + response.getStatus() + "\n");
     }
 
-    private static String generateHeaders(Response response) {
+    private static String formatHeaders(Response response) {
         StringBuilder builder = new StringBuilder();
 
         for(Map.Entry<String, String> header : response.getHeaders().entrySet()) {
@@ -44,11 +44,11 @@ public class ResponsePresenter {
     }
 
     private static byte[] statusBytes(Response response) {
-        return generateStatusLine(response).getBytes();
+        return formatStatusLine(response).getBytes();
     }
 
     private static byte[] headersBytes(Response response) {
-        return generateHeaders(response).getBytes();
+        return formatHeaders(response).getBytes();
     }
 
     private static byte[] newlineBytes() {
