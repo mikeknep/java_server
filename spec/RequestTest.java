@@ -1,6 +1,8 @@
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.HashMap;
+
 import static org.junit.Assert.*;
 
 public class RequestTest {
@@ -8,34 +10,32 @@ public class RequestTest {
 
     @Before
     public void setUpRequest() {
-        request = new Request();
+        String method = "GET";
+        String resource = "/index.html";
+        String version = "HTTP/1.1";
+        HashMap<String, String> headers = new HashMap<String, String>();
+        headers.put("Content-Type", "text/html");
+
+        request = new Request(method, resource, version, headers);
     }
 
     @Test
     public void itSetsItsMethod() {
-        request.setMethod("GET");
-
         assertEquals("GET", request.getMethod());
     }
 
     @Test
     public void itReturnsItsResource() {
-        request.setResource("/index.html");
-
         assertEquals("/index.html", request.getResource());
     }
 
     @Test
     public void itReturnsItsHTTPVersion() {
-        request.setVersion("HTTP/1.1");
-
         assertEquals("HTTP/1.1", request.getVersion());
     }
 
     @Test
     public void itSetsHeadersAndReturnsSingleHeader() {
-        request.setHeader("Content-Type", "text/html");
-
         assertEquals("text/html", request.getHeader("Content-Type"));
     }
 

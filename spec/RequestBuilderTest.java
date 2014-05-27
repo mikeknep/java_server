@@ -1,18 +1,18 @@
 import org.junit.Test;
 
+import java.util.HashMap;
+
 import static org.junit.Assert.*;
 
 public class RequestBuilderTest {
     @Test
     public void itBuildsARequest() throws Exception {
         String rawRequest = "GET /index.html HTTP/1.1\nContent-Type: text/html\nAccept-Ranges: 135";
+        HashMap<String, String> headers = new HashMap<String, String>();
+        headers.put("Content-Type", "text/html");
+        headers.put("Accept-Ranges", "135");
 
-        Request request = new Request();
-        request.setMethod("GET");
-        request.setResource("/index.html");
-        request.setVersion("HTTP/1.1");
-        request.setHeader("Content-Type", "text/html");
-        request.setHeader("Accept-Ranges", "135");
+        Request request = new Request("GET", "/index.html", "HTTP/1.1", headers);
 
         assertEquals(request.getMethod(), RequestBuilder.buildRequest(rawRequest).getMethod());
         assertEquals(request.getResource(), RequestBuilder.buildRequest(rawRequest).getResource());

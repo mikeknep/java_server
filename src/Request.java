@@ -9,31 +9,26 @@ public class Request {
     private String version;
     private HashMap<String, String> headers = new HashMap<String, String>();
 
-
-    public void setMethod(String method) {
+    public Request(String method, String resource, String version, HashMap<String, String> headers) {
         this.method = method;
+        this.resource = resource;
+        this.version = version;
+        this.headers = headers;
     }
+
+
     public String getMethod() {
         return this.method;
     }
 
-    public void setResource(String resource) {
-        this.resource = resource;
-    }
     public String getResource() {
         return this.resource;
     }
 
-    public void setVersion(String version) {
-        this.version = version;
-    }
     public String getVersion() {
         return this.version;
     }
 
-    public void setHeader(String key, String value) {
-        this.headers.put(key, value);
-    }
     public String getHeader(String key) {
         return this.headers.get(key);
     }

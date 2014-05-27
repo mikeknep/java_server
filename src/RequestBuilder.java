@@ -1,22 +1,17 @@
+import java.util.HashMap;
+
 /**
  * Created by mrk on 5/14/14.
  */
 public class RequestBuilder {
     public static Request buildRequest(String rawRequest) throws Exception {
-        Request request = new Request();
-
         String requestLine = parseRequestLine(rawRequest);
-        request.setMethod(parseRequestMethod(requestLine));
-        request.setResource(parseRequestResource(requestLine));
-        request.setVersion(parseRequestVersion(requestLine));
+        String method = parseRequestMethod(requestLine);
+        String resource = parseRequestResource(requestLine);
+        String version = parseRequestVersion(requestLine);
+        HashMap<String, String> headers = parseRequestHeaders(rawRequest);
 
-        String[] headers = parseRequestHeaders(rawRequest);
-        for(String header : headers) {
-            String[] kvPair = header.split(": ", 2);
-            request.setHeader(kvPair[0], kvPair[1]);
-        }
-
-        return request;
+        return new Request(method, resource, version, headers);
     }
 
     private static String parseRequestLine(String rawRequest) {
@@ -35,8 +30,16 @@ public class RequestBuilder {
         return requestLine.split(" ")[2];
     }
 
-    private static String[] parseRequestHeaders(String rawRequest) {
-        String headers = rawRequest.split("\n", 2)[1];
-        return headers.split("\n");
+    private static HashMap<String, String> parseRequestHeaders(String rawRequest) {
+        String rawHeaders = rawRequest.split("\n", 2)[1];
+        String[] allHeaders = rawHeaders.split("\n");
+        HashMap<String, String> headers = new HashMap<String, String>();
+
+        for(String header : allHeaders) {
+            String[] kvPair = header.split(": ", 2);
+            headers.put(kvPair[0], kvPair[1]);
+        }
+
+        return headers;
     }
 }

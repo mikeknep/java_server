@@ -51,10 +51,7 @@ public class LoggerTest {
 
     @Test
     public void itLogsRequestResponseTransaction() {
-        Request request = new Request();
-        request.setMethod("GET");
-        request.setResource("/mock.html");
-        request.setVersion("HTTP/1.1");
+        Request request = new Request("GET", "/mock.html", "HTTP/1.1", null);
 
         Response response = new Response();
         response.setStatus("200 OK");
