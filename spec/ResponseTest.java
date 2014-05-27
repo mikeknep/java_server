@@ -9,11 +9,14 @@ public class ResponseTest {
     Response response;
     @Before
     public void setUpResponse() {
-        response = new Response();
-        response.setVersion("HTTP/1.1");
-        response.setStatus("200 OK");
-        response.setBody("Hello world".getBytes());
-        response.setHeader("Content-Type", "text/html");
+        String version = "HTTP/1.1";
+        String status = "200 OK";
+        byte[] body = "Hello world".getBytes();
+        HashMap<String, String> headers = new HashMap<String, String>();
+        headers.put("Content-Type", "text/html");
+        headers.put("Content-Length", "11");
+
+        response = new Response(version, status, body, headers);
     }
 
     @Test
@@ -35,6 +38,7 @@ public class ResponseTest {
     public void itReturnsItsHeaders() {
         HashMap<String, String> headers = new HashMap<String, String>();
         headers.put("Content-Type", "text/html");
+        headers.put("Content-Length", "11");
 
         assertEquals(headers, response.getHeaders());
     }

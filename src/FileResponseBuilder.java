@@ -2,30 +2,27 @@ import java.net.URLConnection;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.HashMap;
 
 /**
  * Created by mrk on 5/21/14.
  */
 public class FileResponseBuilder implements ResponseBuilder {
-    private String rootDirectory;
-    private String requestedResource;
     private Path resourcePath;
-    private Response response;
 
     public FileResponseBuilder(String rootDirectory, String requestedResource) {
-        this.rootDirectory = rootDirectory;
-        this.requestedResource = requestedResource;
         this.resourcePath = Paths.get(rootDirectory + requestedResource);
-        this.response = new Response();
     }
 
     public Response buildResponse() throws Exception {
-        response.setVersion("HTTP/1.1");
-        response.setStatus("200 OK");
-        response.setBody(generateBody());
-        response.setHeader("Content-Length", String.valueOf(response.getBody().length));
-        response.setHeader("Content-Type", determineContentType());
-        return response;
+        String version = "HTTP/1.1";
+        String status = "200 OK";
+        byte[] body = generateBody();
+        HashMap<String, String> headers = new HashMap<String, String>();
+        headers.put("Content-Length", String.valueOf(body.length));
+        headers.put("Content-Type", determineContentType());
+
+        return new Response(version, status, body, headers);
     }
 
     private byte[] generateBody() throws Exception {

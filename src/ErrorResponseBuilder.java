@@ -2,6 +2,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.HashMap;
 
 /**
  * Created by mrk on 5/21/14.
@@ -10,22 +11,22 @@ public class ErrorResponseBuilder implements ResponseBuilder {
     private String rootDirectory;
     private int errorCode;
     private Path errorResourcePath;
-    private Response response;
 
     public ErrorResponseBuilder(String directory, int errorCode) {
         this.rootDirectory = directory;
         this.errorCode = errorCode;
         this.errorResourcePath = Paths.get(rootDirectory + "/" + errorCode + ".html");
-        this.response = new Response();
     }
 
     public Response buildResponse() {
-        response.setVersion("HTTP/1.1");
-        response.setStatus(errorCode + " " + reasonPhrase());
-        response.setBody(generateErrorBody());
-        response.setHeader("Content-Length", String.valueOf(this.response.getBody().length));
-        response.setHeader("Content-Type", contentType());
-        return response;
+        String version = "HTTP/1.1";
+        String status = errorCode + " " + reasonPhrase();
+        byte[] body = generateErrorBody();
+        HashMap<String, String> headers = new HashMap<String, String>();
+        headers.put("Content-Length", String.valueOf(body.length));
+        headers.put("Content-Type", contentType());
+
+        return new Response(version, status, body, headers);
     }
 
 

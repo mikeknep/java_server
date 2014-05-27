@@ -52,10 +52,7 @@ public class LoggerTest {
     @Test
     public void itLogsRequestResponseTransaction() {
         Request request = new Request("GET", "/mock.html", "HTTP/1.1", null);
-
-        Response response = new Response();
-        response.setStatus("200 OK");
-
+        Response response = new Response("HTTP/1.1", "200 OK", "Hello".getBytes(), null);
         Date socketOpenTime = new Date();
 
         Logger.logBasic(request, response, socketOpenTime);
