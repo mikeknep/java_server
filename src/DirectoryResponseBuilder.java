@@ -19,9 +19,7 @@ public class DirectoryResponseBuilder implements ResponseBuilder {
         String version = "HTTP/1.1";
         String status = "200 OK";
         byte[] body = generateBody();
-        HashMap<String, String> headers = new HashMap<String, String>();
-        headers.put("Content-Length", String.valueOf(body.length));
-        headers.put("Content-Type", "text/html");
+        HashMap<String, String> headers = generateHeaders(body);
 
         return new Response(version, status, body, headers);
     }
@@ -37,6 +35,13 @@ public class DirectoryResponseBuilder implements ResponseBuilder {
         builder.append("</ul>");
 
         return builder.toString().getBytes();
+    }
+
+    private HashMap<String, String> generateHeaders(byte[] body) {
+        HashMap<String, String> headers = new HashMap<String, String>();
+        headers.put("Content-Length", String.valueOf(body.length));
+        headers.put("Content-Type", "text/html");
+        return headers;
     }
 
     private String getRelativePath(File file) {

@@ -22,9 +22,7 @@ public class ErrorResponseBuilder implements ResponseBuilder {
         String version = "HTTP/1.1";
         String status = errorCode + " " + reasonPhrase();
         byte[] body = generateErrorBody();
-        HashMap<String, String> headers = new HashMap<String, String>();
-        headers.put("Content-Length", String.valueOf(body.length));
-        headers.put("Content-Type", determineContentType());
+        HashMap<String, String> headers = generateHeaders(body);
 
         return new Response(version, status, body, headers);
     }
@@ -45,6 +43,13 @@ public class ErrorResponseBuilder implements ResponseBuilder {
         } catch (IOException e) {
             return String.valueOf(errorCode).getBytes();
         }
+    }
+
+    private HashMap<String, String> generateHeaders(byte[] body) {
+        HashMap<String, String> headers = new HashMap<String, String>();
+        headers.put("Content-Length", String.valueOf(body.length));
+        headers.put("Content-Type", determineContentType());
+        return headers;
     }
 
     private String determineContentType() {

@@ -18,15 +18,20 @@ public class FileResponseBuilder implements ResponseBuilder {
         String version = "HTTP/1.1";
         String status = "200 OK";
         byte[] body = generateBody();
-        HashMap<String, String> headers = new HashMap<String, String>();
-        headers.put("Content-Length", String.valueOf(body.length));
-        headers.put("Content-Type", determineContentType());
+        HashMap<String, String> headers = generateHeaders(body);
 
         return new Response(version, status, body, headers);
     }
 
     private byte[] generateBody() throws Exception {
         return Files.readAllBytes(resourcePath);
+    }
+
+    private HashMap<String, String> generateHeaders(byte[] body) {
+        HashMap<String, String> headers = new HashMap<String, String>();
+        headers.put("Content-Length", String.valueOf(body.length));
+        headers.put("Content-Type", determineContentType());
+        return headers;
     }
 
     private String determineContentType() {
