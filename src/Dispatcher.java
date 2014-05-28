@@ -8,7 +8,9 @@ import java.nio.file.Paths;
 public class Dispatcher {
     public static ResponseBuilder setResponseBuilder(String directory, Request request) {
         Path path = Paths.get(directory, request.getResource());
-        if (Files.isDirectory(path)) {
+        if (RequestValidator.isInvalidRequest(request)) {
+            return new BadRequestResponseBuilder();
+        } else if (Files.isDirectory(path)) {
             return new DirectoryResponseBuilder(directory, request.getResource());
         } else if (Files.exists(path)) {
             return new FileResponseBuilder(directory, request.getResource());

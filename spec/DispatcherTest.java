@@ -5,6 +5,13 @@ import static org.junit.Assert.*;
 public class DispatcherTest {
 
     @Test
+    public void itSendsBadRequestsToBadRequestResponseBuilder() throws Exception {
+        Request badRequest = RequestBuilder.buildRequest("");
+
+        assertEquals(BadRequestResponseBuilder.class, Dispatcher.setResponseBuilder("spec", badRequest).getClass());
+    }
+
+    @Test
     public void itSendsFileRequestsToFileResponseBuilder() throws Exception {
         Request fileRequest = RequestBuilder.buildRequest("GET /sample_files/mock.html HTTP/1.1\nHeader: header");
 
