@@ -26,9 +26,9 @@ public class DispatcherTest {
     }
 
     @Test
-    public void itSendsBadRequestsToErrorResponseBuilder() throws Exception {
+    public void itSendsBadRequestsToMissingResourceResponseBuilder() throws Exception {
         Request request404 = RequestBuilder.buildRequest("GET /sample_files/not_here.html HTTP/1.1\nHeader: header");
 
-        assertEquals(ErrorResponseBuilder.class, Dispatcher.setResponseBuilder("spec", request404).getClass());
+        assertEquals(MissingResourceResponseBuilder.class, Dispatcher.setResponseBuilder("spec", request404).getClass());
     }
 }

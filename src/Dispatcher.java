@@ -15,7 +15,7 @@ public class Dispatcher {
         } else if (Files.exists(path)) {
             return new FileResponseBuilder(directory, request.getResource());
         } else {
-            return new ErrorResponseBuilder(directory, 404);
+            return new MissingResourceResponseBuilder(directory);
         }
     }
 }
