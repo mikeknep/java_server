@@ -8,13 +8,6 @@ public class Server {
     private String directory;
     private ServerSocket serverSocket;
 
-    public static void main(String[] args) throws Exception
-    {
-        SettingsConfig config = new SettingsConfig(args);
-        Server server = new Server(config.getPort(), config.getDirectory());
-        server.run();
-    }
-
     public Server(int port, String directory) throws Exception {
         this.port = port;
         this.directory = directory;

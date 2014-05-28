@@ -1,2 +1,2 @@
-Main-Class: Server
+Main-Class: Main
 
