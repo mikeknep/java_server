@@ -25,19 +25,12 @@ public class Server {
     public void run() throws Exception {
         while (true) {
             SocketStreamPair socketStreamPair = new SocketStreamPair(serverSocket);
-
-            try {
-                String rawRequest = Listener.receiveRawRequest(socketStreamPair.getIn());
-                Request request = RequestBuilder.buildRequest(rawRequest);
-                ResponseBuilder responseBuilder = Dispatcher.setResponseBuilder(directory, request);
-                Response response = responseBuilder.buildResponse();
-                Responder.sendResponse(response, socketStreamPair.getOut());
-                Logger.logBasic(request, response, socketStreamPair.getSocketOpenTime());
-            }
-            catch (Exception e) {
-                ExceptionHandler.handle(e, socketStreamPair.getOut(), directory);
-            }
-
+            String rawRequest = Listener.receiveRawRequest(socketStreamPair.getIn());
+            Request request = RequestBuilder.buildRequest(rawRequest);
+            ResponseBuilder responseBuilder = Dispatcher.setResponseBuilder(directory, request);
+            Response response = responseBuilder.buildResponse();
+            Responder.sendResponse(response, socketStreamPair.getOut());
+            Logger.logBasic(request, response, socketStreamPair.getSocketOpenTime());
             socketStreamPair.close();
         }
     }
