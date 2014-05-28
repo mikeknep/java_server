@@ -4,15 +4,13 @@ import java.net.ServerSocket;
 * Created by mrk on 5/7/14.
 */
 public class Server {
-    private int port;
     private String directory;
     private ServerSocket serverSocket;
 
-    public Server(int port, String directory) throws Exception {
-        this.port = port;
+    public Server(String directory, ServerSocket serverSocket) throws Exception {
         this.directory = directory;
-        this.serverSocket = new ServerSocket(port);
-        Logger.logStartup(port, directory);
+        this.serverSocket = serverSocket;
+        Logger.logStartup(serverSocket.getLocalPort(), directory);
     }
 
     public void run() throws Exception {
