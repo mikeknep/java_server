@@ -23,7 +23,7 @@ public class ErrorResponseBuilderTest {
         headers.put("Content-Type", "text/plain");
         Response expectedResponse = new Response(version, status, body, headers);
 
-        ErrorResponseBuilder builder = new ErrorResponseBuilder("spec", 404);
+        ErrorResponseBuilder builder = new ErrorResponseBuilder("test", 404);
 
         assertTrue(responsesAreEquivalent(expectedResponse, builder.buildResponse()));
     }
@@ -38,7 +38,7 @@ public class ErrorResponseBuilderTest {
         headers.put("Content-Type", "text/html");
         Response expectedResponse = new Response(version, status, body, headers);
 
-        ErrorResponseBuilder builder = new ErrorResponseBuilder("spec/sample_files", 404);
+        ErrorResponseBuilder builder = new ErrorResponseBuilder("test/sample_files", 404);
 
         assertTrue(responsesAreEquivalent(expectedResponse, builder.buildResponse()));
     }
@@ -53,7 +53,7 @@ public class ErrorResponseBuilderTest {
         headers.put("Content-Type", "text/plain");
         Response expectedResponse = new Response(version, status, body, headers);
 
-        ErrorResponseBuilder builder = new ErrorResponseBuilder("spec", 500);
+        ErrorResponseBuilder builder = new ErrorResponseBuilder("test", 500);
 
         assertTrue(responsesAreEquivalent(expectedResponse, builder.buildResponse()));
     }
@@ -68,7 +68,7 @@ public class ErrorResponseBuilderTest {
         headers.put("Content-Type", "text/html");
         Response expectedResponse = new Response(version, status, body, headers);
 
-        ErrorResponseBuilder builder = new ErrorResponseBuilder("spec/sample_files", 500);
+        ErrorResponseBuilder builder = new ErrorResponseBuilder("test/sample_files", 500);
 
         assertTrue(responsesAreEquivalent(expectedResponse, builder.buildResponse()));
     }

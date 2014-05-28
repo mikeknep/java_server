@@ -23,7 +23,7 @@ public class MissingResourceResponseBuilderTest {
         headers.put("Content-Type", "text/html");
         Response expectedResponse = new Response(version, status, body, headers);
 
-        MissingResourceResponseBuilder builder = new MissingResourceResponseBuilder("spec/sample_files");
+        MissingResourceResponseBuilder builder = new MissingResourceResponseBuilder("test/sample_files");
 
         assertTrue(responsesAreEquivalent(expectedResponse, builder.buildResponse()));
     }
@@ -38,7 +38,7 @@ public class MissingResourceResponseBuilderTest {
         headers.put("Content-Type", "text/plain");
         Response expectedResponse = new Response(version, status, body, headers);
 
-        MissingResourceResponseBuilder builder = new MissingResourceResponseBuilder("spec");
+        MissingResourceResponseBuilder builder = new MissingResourceResponseBuilder("test");
 
         assertTrue(responsesAreEquivalent(expectedResponse, builder.buildResponse()));
     }

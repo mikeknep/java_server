@@ -23,7 +23,7 @@ public class ExceptionHandlerTest {
     public void itSends500Response() throws Exception {
         Exception exception = new Exception();
         MockStreamPair mockStreamPair = new MockStreamPair("Hello".getBytes());
-        ExceptionHandler.handle(exception, mockStreamPair.getOut(), "spec/sample_files");
+        ExceptionHandler.handle(exception, mockStreamPair.getOut(), "test/sample_files");
 
         assertTrue(mockStreamPair.getOut().toString().contains("500 Internal Server Error"));
     }

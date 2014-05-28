@@ -25,7 +25,7 @@ public class DirectoryResponseBuilderTest {
         headers.put("Content-Type", "text/html");
         Response expectedResponse = new Response(version, status, body, headers);
 
-        DirectoryResponseBuilder builder = new DirectoryResponseBuilder("spec", "/sample_files");
+        DirectoryResponseBuilder builder = new DirectoryResponseBuilder("test", "/sample_files");
 
         assertTrue(responsesAreEquivalent(expectedResponse, builder.buildResponse()));
     }

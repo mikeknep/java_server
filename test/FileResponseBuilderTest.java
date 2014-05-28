@@ -26,7 +26,7 @@ public class FileResponseBuilderTest {
         headers.put("Content-Type", "text/html");
         Response expectedResponse = new Response(version, status, body, headers);
 
-        FileResponseBuilder builder = new FileResponseBuilder("spec/sample_files", "/mock.html");
+        FileResponseBuilder builder = new FileResponseBuilder("test/sample_files", "/mock.html");
 
         assertTrue(responsesAreEquivalent(expectedResponse, builder.buildResponse()));
     }
@@ -35,13 +35,13 @@ public class FileResponseBuilderTest {
     public void itBuildsJPGFileResponse() throws Exception {
         String version = "HTTP/1.1";
         String status = "200 OK";
-        byte[] body = Files.readAllBytes(Paths.get("spec/sample_files/mock.jpg"));
+        byte[] body = Files.readAllBytes(Paths.get("test/sample_files/mock.jpg"));
         HashMap<String, String> headers = new HashMap<String, String>();
         headers.put("Content-Length", String.valueOf(body.length));
         headers.put("Content-Type", "image/jpeg");
         Response expectedResponse = new Response(version, status, body, headers);
 
-        FileResponseBuilder builder = new FileResponseBuilder("spec/sample_files", "/mock.jpg");
+        FileResponseBuilder builder = new FileResponseBuilder("test/sample_files", "/mock.jpg");
 
         assertTrue(responsesAreEquivalent(expectedResponse, builder.buildResponse()));
     }
@@ -50,13 +50,13 @@ public class FileResponseBuilderTest {
     public void itBuildsGIFFileResponse() throws Exception {
         String version = "HTTP/1.1";
         String status = "200 OK";
-        byte[] body = Files.readAllBytes(Paths.get("spec/sample_files/mock.gif"));
+        byte[] body = Files.readAllBytes(Paths.get("test/sample_files/mock.gif"));
         HashMap<String, String> headers = new HashMap<String, String>();
         headers.put("Content-Length", String.valueOf(body.length));
         headers.put("Content-Type", "image/gif");
         Response expectedResponse = new Response(version, status, body, headers);
 
-        FileResponseBuilder builder = new FileResponseBuilder("spec/sample_files", "/mock.gif");
+        FileResponseBuilder builder = new FileResponseBuilder("test/sample_files", "/mock.gif");
 
         assertTrue(responsesAreEquivalent(expectedResponse, builder.buildResponse()));
     }
