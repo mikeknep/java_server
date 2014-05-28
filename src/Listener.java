@@ -16,10 +16,6 @@ public class Listener {
             builder.append(line + "\n");
         }
 
-        if (builder.toString().equals("")) {
-            throw new PhantomRequestException();
-        } else {
-            return builder.toString();
-        }
+        return builder.toString();
     }
 }

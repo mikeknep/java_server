@@ -24,9 +24,6 @@ public class ListenerTest {
         System.setOut(null);
     }
 
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
-
     @Test
     public void itReceivesRawRequest() throws Exception {
         MockStreamPair mockStreamPair = new MockStreamPair("First line\nSecond line\nThird line".getBytes());
@@ -35,9 +32,16 @@ public class ListenerTest {
     }
 
     @Test
-    public void itThrowsPhantomRequestException() throws Exception {
-        thrown.expect(PhantomRequestException.class);
-        ByteArrayInputStream phantom = new ByteArrayInputStream("".getBytes());
-        Listener.receiveRawRequest(phantom);
+    public void itReceivesBadRawRequest() throws Exception {
+        MockStreamPair mockStreamPair = new MockStreamPair("Incomplete   \n".getBytes());
+
+        assertEquals("Incomplete   \n", Listener.receiveRawRequest(mockStreamPair.getIn()));
+    }
+
+    @Test
+    public void itReceivesPhantomRequest() throws Exception {
+        MockStreamPair mockStreamPair = new MockStreamPair("".getBytes());
+
+        assertEquals("", Listener.receiveRawRequest(mockStreamPair.getIn()));
     }
 }
