@@ -33,9 +33,17 @@ public class RequestBuilderTest {
     }
 
     @Test
-    public void itBuildsDeliberatelyInvalidRequest() throws Exception {
+    public void itBuildsDeliberatelyInvalidRequestWhenPhantom() throws Exception {
         Request expectedRequest = new Request("", "", "", new HashMap<String, String>());
         String rawRequest = "";
+
+        assertTrue(requestsAreEquivalent(expectedRequest, RequestBuilder.buildRequest(rawRequest)));
+    }
+
+    @Test
+    public void itBuildsDeliberatelyInvalidRequestWhenPartial() throws Exception {
+        Request expectedRequest = new Request("", "", "", new HashMap<String, String>());
+        String rawRequest = "GET \nFoo: Bar\n";
 
         assertTrue(requestsAreEquivalent(expectedRequest, RequestBuilder.buildRequest(rawRequest)));
     }

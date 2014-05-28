@@ -4,7 +4,7 @@ import java.util.HashMap;
  * Created by mrk on 5/14/14.
  */
 public class RequestBuilder {
-    public static Request buildRequest(String rawRequest) throws Exception {
+    public static Request buildRequest(String rawRequest) {
         try {
             String requestLine = parseRequestLine(rawRequest);
             String method = parseMethod(requestLine);
@@ -13,7 +13,7 @@ public class RequestBuilder {
             HashMap<String, String> headers = parseHeaders(rawRequest);
 
             return new Request(method, resource, version, headers);
-        } catch (Exception e) {
+        } catch (ArrayIndexOutOfBoundsException e) {
             return new Request("", "", "", new HashMap<String, String>());
         }
     }
