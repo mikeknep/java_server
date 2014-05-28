@@ -19,27 +19,8 @@ public class ExceptionHandlerTest {
     }
 
 
-
     @Test
-    public void itLogsAllExceptions() throws Exception {
-        Exception exception = new Exception();
-        MockStreamPair mockStreamPair = new MockStreamPair("Hello".getBytes());
-        ExceptionHandler.handle(exception, mockStreamPair.getOut(), "spec/sample_files");
-
-        assertTrue(output.toString().contains("Exception"));
-    }
-
-    @Test
-    public void itIgnoresPhantomRequest() throws Exception {
-        PhantomRequestException phantom = new PhantomRequestException();
-        MockStreamPair mockStreamPair = new MockStreamPair("Hello".getBytes());
-        ExceptionHandler.handle(phantom, mockStreamPair.getOut(), "spec/sample_files");
-
-        assertFalse(mockStreamPair.getOut().toString().contains("500 Internal Server Error"));
-    }
-
-    @Test
-    public void itSends500ResponseForSomeExceptions() throws Exception {
+    public void itSends500Response() throws Exception {
         Exception exception = new Exception();
         MockStreamPair mockStreamPair = new MockStreamPair("Hello".getBytes());
         ExceptionHandler.handle(exception, mockStreamPair.getOut(), "spec/sample_files");
