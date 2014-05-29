@@ -41,7 +41,6 @@ public class ServerTest {
         Thread clientThread = new Thread(new Runnable() {
             @Override
             public void run() {
-                System.out.println("Thread starts, beginning of overridden run");
                 try {
                     new URL("http://localhost:2468/mock.html").openStream();
                 }
