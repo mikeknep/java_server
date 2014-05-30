@@ -9,6 +9,7 @@ import java.util.Date;
 import static org.junit.Assert.*;
 
 public class LoggerTest {
+    private final PrintStream stdout = System.out;
     private final ByteArrayOutputStream output = new ByteArrayOutputStream();
     @Before
     public void setUpOutput() {
@@ -17,7 +18,7 @@ public class LoggerTest {
 
     @After
     public void cleanUpOutput() {
-        System.setOut(null);
+        System.setOut(stdout);
     }
 
 
