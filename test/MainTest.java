@@ -20,7 +20,7 @@ public class MainTest {
         });
 
         serverThread.start();
-        Thread.sleep(500);
+        Thread.sleep(100);
         Socket socket = new Socket("localhost", 2468);
         PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
         writer.println("GET / HTTP/1.1");
