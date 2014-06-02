@@ -11,7 +11,7 @@ import java.util.Date;
 public class Logger {
 
     public static void logStartup(int port, String directory) {
-        System.out.println("com.mikeknep.dahomey.utils.Server initialized on port " + port + ", serving directory " + directory);
+        System.out.println("Server initialized on port " + port + ", serving directory " + directory);
     }
 
     public static void logBasic(Request request, Response response, Date timeOfRequest) {
