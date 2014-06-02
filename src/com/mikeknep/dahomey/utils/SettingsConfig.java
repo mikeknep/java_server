@@ -1,5 +1,7 @@
 package com.mikeknep.dahomey.utils;
 
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 
@@ -9,14 +11,17 @@ import java.util.List;
 public class SettingsConfig {
     private int port;
     private String directory;
+    private String router;
 
     public int getPort() { return this.port; }
     public String getDirectory() { return this.directory; }
+    public String getRouter() { return this.router; }
 
     public SettingsConfig(String[] args) {
         List<String> arguments = Arrays.asList(args);
         setPortNumber(arguments);
         setDirectory(arguments);
+        setRouter(arguments);
     }
 
 
@@ -40,6 +45,15 @@ public class SettingsConfig {
         }
     }
 
+    private void setRouter(List<String> arguments) {
+        if (arguments.contains("-r")) {
+            String router = getFlagValue(arguments, "-r");
+            if (isValidRouter(router)) {
+                this.router = router;
+            }
+        }
+    }
+
 
     private String getFlagValue(List<String> arguments, String flag) {
         try {
@@ -55,6 +69,10 @@ public class SettingsConfig {
     }
 
     private boolean isValidPath(String directory) {
-        return (directory.length() > 0 && directory.matches("[A-Za-z0-9/]*"));
+        return (directory.length() > 0 && directory.matches("[\\w/]*"));
+    }
+
+    private boolean isValidRouter(String router) {
+        return (Files.exists(Paths.get(this.directory + router)) && router.substring(router.lastIndexOf(".")).equals(".jar"));
     }
 }

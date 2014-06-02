@@ -5,7 +5,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class SettingsConfigTest {
-    String[] args = {"-p", "8399", "-d", "/Users/mrk/Desktop"};
+    String[] args = {"-p", "8399", "-d", "test/sample_files/", "-r", "router.jar"};
     SettingsConfig config = new SettingsConfig(args);
 
     String[] emptyArgs = {};
@@ -19,7 +19,12 @@ public class SettingsConfigTest {
 
     @Test
     public void itSetsDirectoryToServe() {
-        assertEquals("/Users/mrk/Desktop", config.getDirectory());
+        assertEquals("test/sample_files/", config.getDirectory());
+    }
+
+    @Test
+    public void itSetsRoutingApplication() {
+        assertEquals("router.jar", config.getRouter());
     }
 
     @Test
@@ -30,6 +35,11 @@ public class SettingsConfigTest {
     @Test
     public void itDefaultsToLocalPublicFolder() {
         assertEquals("public", defaultConfig.getDirectory());
+    }
+
+    @Test
+    public void itDefaultsToNullRouter() {
+        assertEquals(null, defaultConfig.getRouter());
     }
 
 
