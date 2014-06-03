@@ -5,7 +5,7 @@ import com.mikeknep.dahomey.requests.Request;
 import com.mikeknep.dahomey.requests.RequestBuilder;
 import com.mikeknep.dahomey.responses.Responder;
 import com.mikeknep.dahomey.responses.Response;
-import com.mikeknep.dahomey.responses.ResponseBuilder;
+import com.mikeknep.dahomey.responses.ResponseFactory;
 
 import java.net.ServerSocket;
 
@@ -32,8 +32,10 @@ public class Server {
             SocketStreamPair socketStreamPair = new SocketStreamPair(serverSocket);
             String rawRequest = Listener.receiveRawRequest(socketStreamPair.getIn());
             Request request = RequestBuilder.buildRequest(rawRequest);
-            ResponseBuilder responseBuilder = Dispatcher.setResponseBuilder(directory, request);
-            Response response = responseBuilder.buildResponse();
+            RouterInteractor interactor = new RouterInteractor(directory, request, router);
+            interactor.runRouter();
+            Response response = ResponseFactory.buildResponse(interactor.getStatus(), interactor.getHeaders(), interactor.getBody());
+
             Responder.sendResponse(response, socketStreamPair.getOut());
             Logger.logBasic(request, response, socketStreamPair.getSocketOpenTime());
             socketStreamPair.close();

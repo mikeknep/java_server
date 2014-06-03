@@ -13,7 +13,7 @@ public class MainTest {
         Thread serverThread = new Thread(new Runnable() {
             @Override
             public void run() {
-                String[] args = {"-p", "2468", "-d", "test/sample_files/", "-r", "mock.jar"};
+                String[] args = {"-p", "2468", "-r", "/mock.jar"};
                 try {
                     Main.main(args);
                 }
