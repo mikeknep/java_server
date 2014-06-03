@@ -20,7 +20,7 @@ public class DirectoryResponseBuilderTest {
     public void itBuildsDirectoryResponse() {
         String version = "HTTP/1.1";
         String status = "200 OK";
-        String bodyString = "<ul><li><a href=\"//sample_files/404.html\">404.html</a></li><li><a href=\"//sample_files/500.html\">500.html</a></li><li><a href=\"//sample_files/mock.gif\">mock.gif</a></li><li><a href=\"//sample_files/mock.html\">mock.html</a></li><li><a href=\"//sample_files/mock.jpg\">mock.jpg</a></li></ul>";
+        String bodyString = "<ul><li><a href=\"//sample_files/404.html\">404.html</a></li><li><a href=\"//sample_files/500.html\">500.html</a></li><li><a href=\"//sample_files/mock.gif\">mock.gif</a></li><li><a href=\"//sample_files/mock.html\">mock.html</a></li><li><a href=\"//sample_files/mock.jar\">mock.jar</a></li><li><a href=\"//sample_files/mock.jpg\">mock.jpg</a></li></ul>";
         byte[] body = bodyString.getBytes();
         HashMap<String, String> headers = new HashMap<String, String>();
         headers.put("Content-Length", String.valueOf(body.length));

@@ -5,7 +5,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class SettingsConfigTest {
-    String[] args = {"-p", "8399", "-d", "test/sample_files/", "-r", "router.jar"};
+    String[] args = {"-p", "8399", "-d", "test/sample_files/", "-r", "mock.jar"};
     SettingsConfig config = new SettingsConfig(args);
 
     String[] emptyArgs = {};
@@ -24,7 +24,7 @@ public class SettingsConfigTest {
 
     @Test
     public void itSetsRoutingApplication() {
-        assertEquals("router.jar", config.getRouter());
+        assertEquals("mock.jar", config.getRouter());
     }
 
     @Test
