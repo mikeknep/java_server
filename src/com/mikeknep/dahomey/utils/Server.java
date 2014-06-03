@@ -35,7 +35,6 @@ public class Server {
             RouterInteractor interactor = new RouterInteractor(directory, request, router);
             interactor.runRouter();
             Response response = ResponseFactory.buildResponse(interactor.getStatus(), interactor.getHeaders(), interactor.getBody());
-
             Responder.sendResponse(response, socketStreamPair.getOut());
             Logger.logBasic(request, response, socketStreamPair.getSocketOpenTime());
             socketStreamPair.close();
