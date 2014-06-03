@@ -13,7 +13,8 @@ public class Main {
         SettingsConfig config = new SettingsConfig(args);
         String rootDirectory = config.getDirectory();
         ServerSocket serverSocket = new ServerSocket(config.getPort());
-        Server server = new Server(rootDirectory, serverSocket);
+        String router = config.getRouter();
+        Server server = new Server(rootDirectory, serverSocket, router);
         server.run();
     }
 }

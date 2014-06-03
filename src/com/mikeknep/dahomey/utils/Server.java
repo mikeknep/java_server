@@ -15,10 +15,15 @@ import java.net.ServerSocket;
 public class Server {
     private String directory;
     private ServerSocket serverSocket;
+    private String router;
 
-    public Server(String directory, ServerSocket serverSocket) throws Exception {
+    public Server(String directory, ServerSocket serverSocket, String router) throws Exception {
         this.directory = directory;
         this.serverSocket = serverSocket;
+        this.router = router;
+        if (this.router == null) {
+            throw new MissingRouterException();
+        }
         Logger.logStartup(serverSocket.getLocalPort(), directory);
     }
 

@@ -8,6 +8,11 @@ import java.net.*;
 import static org.junit.Assert.*;
 
 public class ServerTest {
+    @Test(expected = MissingRouterException.class)
+    public void itRequiresARouterToBeInstantiated() throws Exception {
+        Server server = new Server("test/sample_files", new ServerSocket(9876), null);
+    }
+
     @Test
     public void itReceivesRequestAndSendsResponse() throws Exception {
         Thread serverThread = new Thread(new Runnable() {
@@ -15,7 +20,7 @@ public class ServerTest {
             public void run() {
                 try {
                     ServerSocket serverSocket= new ServerSocket(2468);
-                    Server server = new Server("test/sample_files", serverSocket);
+                    Server server = new Server("test/sample_files", serverSocket, "mock.jar");
                     server.run();
                 }
                 catch (Exception e) {}
