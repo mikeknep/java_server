@@ -17,7 +17,7 @@ public class BadRequestResponseBuilderTest {
 
     @Test
     public void itBuildsResponseToBadRequest() throws Exception {
-        Response expectedResponse = new Response("HTTP/1.1", "400 Bad com.mikeknep.dahomey.requests.Request", "".getBytes(), new HashMap<String, String>());
+        Response expectedResponse = new Response("HTTP/1.1", "400 Bad Request", "".getBytes(), new HashMap<String, String>());
         BadRequestResponseBuilder builder = new BadRequestResponseBuilder();
 
         assertTrue(responsesAreEquivalent(expectedResponse, builder.buildResponse()));
