@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Date;
 
 /**
  * Created by mrk on 5/19/14.
@@ -24,4 +25,10 @@ public class MockSocketConnection implements StreamPair {
     public OutputStream getOut() {
         return outputStream;
     }
+
+    public Date getSocketOpenTime() {
+        return new Date();
+    }
+
+    public void close() {}
 }
