@@ -15,14 +15,14 @@ import java.net.ServerSocket;
 public class Server {
     private String directory;
     private ServerSocket serverSocket;
-    private String router;
+    private String application;
 
-    public Server(String directory, ServerSocket serverSocket, String router) throws Exception {
+    public Server(String directory, ServerSocket serverSocket, String application) throws Exception {
         this.directory = directory;
         this.serverSocket = serverSocket;
-        this.router = router;
-        if (this.router == null) {
-            throw new MissingRouterException();
+        this.application = application;
+        if (this.application == null) {
+            throw new MissingApplicationException();
         }
         Logger.logStartup(serverSocket.getLocalPort(), directory);
     }
@@ -32,7 +32,7 @@ public class Server {
             SocketStreamPair socketStreamPair = new SocketStreamPair(serverSocket);
             String rawRequest = Listener.receiveRawRequest(socketStreamPair.getIn());
             Request request = RequestBuilder.buildRequest(rawRequest);
-            RouterInteractor interactor = new RouterInteractor(directory, request, router);
+            ApplicationInteractor interactor = new ApplicationInteractor(directory, request, application);
             interactor.runRouter();
             Response response = ResponseFactory.buildResponse(interactor.getStatus(), interactor.getHeaders(), interactor.getBody());
             Responder.sendResponse(response, socketStreamPair.getOut());

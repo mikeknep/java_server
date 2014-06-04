@@ -4,7 +4,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class RouterInteractorTest {
+public class ApplicationInteractorTest {
     @Test
     public void itReturnsStatusFromRouter() {
         //

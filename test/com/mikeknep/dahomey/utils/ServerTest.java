@@ -8,8 +8,8 @@ import java.net.*;
 import static org.junit.Assert.*;
 
 public class ServerTest {
-    @Test(expected = MissingRouterException.class)
-    public void itRequiresARouterToBeInstantiated() throws Exception {
+    @Test(expected = MissingApplicationException.class)
+    public void itRequiresAnApplicationToBeInstantiated() throws Exception {
         Server server = new Server("public/", new ServerSocket(9876), null);
     }
 

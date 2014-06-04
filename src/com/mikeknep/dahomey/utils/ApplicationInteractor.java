@@ -8,22 +8,22 @@ import java.util.HashMap;
 /**
  * Created by mrk on 6/3/14.
  */
-public class RouterInteractor {
+public class ApplicationInteractor {
     private String rootDirectory;
     private Request request;
-    private String router;
+    private String application;
     private String status;
     private HashMap<String, String> headers;
     private byte[] body;
 
-    public RouterInteractor(String directory, Request request, String router) {
+    public ApplicationInteractor(String directory, Request request, String application) {
         this.rootDirectory = directory;
         this.request = request;
-        this.router = router;
+        this.application = application;
     }
 
     public void runRouter() throws Exception {
-        ProcessBuilder builder = new ProcessBuilder("java", "-jar", rootDirectory + router, rootDirectory, request.getMethod(), request.getResource());
+        ProcessBuilder builder = new ProcessBuilder("java", "-jar", rootDirectory + application, rootDirectory, request.getMethod(), request.getResource());
         builder.redirectErrorStream(true);
         Process process = builder.start();
 
