@@ -33,7 +33,7 @@ public class Server {
             String rawRequest = Listener.receiveRawRequest(socketStreamPair.getIn());
             Request request = RequestBuilder.buildRequest(rawRequest);
             ApplicationInteractor interactor = new ApplicationInteractor(directory, request, application);
-            interactor.runRouter();
+            interactor.runApplication();
             Response response = ResponseFactory.buildResponse(interactor.getStatus(), interactor.getHeaders(), interactor.getBody());
             Responder.sendResponse(response, socketStreamPair.getOut());
             Logger.logBasic(request, response, socketStreamPair.getSocketOpenTime());

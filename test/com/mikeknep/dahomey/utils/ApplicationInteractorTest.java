@@ -6,17 +6,17 @@ import static org.junit.Assert.*;
 
 public class ApplicationInteractorTest {
     @Test
-    public void itReturnsStatusFromRouter() {
+    public void itReturnsStatusFromApplication() {
         //
     }
 
     @Test
-    public void itReturnsHeadersFromRouter() {
+    public void itReturnsHeadersFromApplication() {
         //
     }
 
     @Test
-    public void itReturnsBodyFromRouter() {
+    public void itReturnsBodyFromApplication() {
         //
     }
 }

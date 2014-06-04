@@ -22,7 +22,7 @@ public class ApplicationInteractor {
         this.application = application;
     }
 
-    public void runRouter() throws Exception {
+    public void runApplication() throws Exception {
         ProcessBuilder builder = new ProcessBuilder("java", "-jar", rootDirectory + application, rootDirectory, request.getMethod(), request.getResource());
         builder.redirectErrorStream(true);
         Process process = builder.start();
