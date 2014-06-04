@@ -10,8 +10,8 @@ import java.util.Date;
  */
 public class Logger {
 
-    public static void logStartup(int port, String directory) {
-        System.out.println("Server initialized on port " + port + ", serving directory " + directory);
+    public static void logStartup(int port, String directory, String application) {
+        System.out.println("Server initialized on port " + port + ", serving directory " + directory + " using application " + application);
     }
 
     public static void logBasic(Request request, Response response, Date timeOfRequest) {

@@ -28,9 +28,11 @@ public class LoggerTest {
 
     @Test
     public void itLogsAStartupMessage() {
-        Logger.logStartup(8399, "/Users/mrk/Desktop");
+        Logger.logStartup(8399, "/some/dir/", "someapp.jar");
 
-        assertTrue(output.toString().contains("8399") && output.toString().contains("Desktop"));
+        assertTrue(output.toString().contains("8399"));
+        assertTrue(output.toString().contains("/some/dir/"));
+        assertTrue(output.toString().contains("someapp.jar"));
     }
 
     @Test

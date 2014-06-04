@@ -20,7 +20,7 @@ public class Server {
         if (this.application == null) {
             throw new MissingApplicationException();
         }
-        Logger.logStartup(serverSocket.getLocalPort(), directory);
+        Logger.logStartup(serverSocket.getLocalPort(), directory, application);
     }
 
     public void run() throws Exception {
