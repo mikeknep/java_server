@@ -17,7 +17,7 @@ public class ResponseFactoryTest {
 
     @Test
     public void itCreatesAResponse() {
-        Response expectedResponse = new Response("HTTP/1.1", "200 OK", "foobar".getBytes(), new HashMap<String, String>());
+        Response expectedResponse = new Response("200 OK", new HashMap<String, String>(), "foobar".getBytes());
         assertTrue(responsesAreEquivalent(expectedResponse, ResponseFactory.buildResponse("200 OK", new HashMap<String, String>(), "foobar".getBytes())));
     }
 }

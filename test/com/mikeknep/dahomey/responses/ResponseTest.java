@@ -18,7 +18,7 @@ public class ResponseTest {
         headers.put("Content-Type", "text/html");
         headers.put("Content-Length", "11");
 
-        response = new Response(version, status, body, headers);
+        response = new Response(status, headers, body);
     }
 
     @Test

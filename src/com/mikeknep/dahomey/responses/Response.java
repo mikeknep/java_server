@@ -11,8 +11,8 @@ public class Response {
     private byte[] body;
     private HashMap<String, String> headers = new HashMap<String, String>();
 
-    public Response(String version, String status, byte[] body, HashMap<String, String> headers) {
-        this.version = version;
+    public Response(String status, HashMap<String, String> headers, byte[] body) {
+        this.version = "HTTP/1.1";
         this.status = status;
         this.body = body;
         this.headers = headers;

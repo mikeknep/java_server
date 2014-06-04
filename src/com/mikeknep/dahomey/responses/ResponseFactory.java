@@ -7,6 +7,6 @@ import java.util.HashMap;
  */
 public class ResponseFactory {
     public static Response buildResponse(String status, HashMap<String, String> headers, byte[] body) {
-        return new Response("HTTP/1.1", status, body, headers);
+        return new Response(status, headers, body);
     }
 }

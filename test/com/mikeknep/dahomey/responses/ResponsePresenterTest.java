@@ -15,7 +15,7 @@ public class ResponsePresenterTest {
         HashMap<String, String> headers = new HashMap<String, String>();
         headers.put("Content-Length", "135");
         headers.put("Content-Type", "text/html");
-        Response response = new Response(version, status, body, headers);
+        Response response = new Response(status, headers, body);
 
         byte[] expectedFullResponseByteArray = "HTTP/1.1 200 OK\nContent-Length: 135\nContent-Type: text/html\n\nHello world".getBytes();
 

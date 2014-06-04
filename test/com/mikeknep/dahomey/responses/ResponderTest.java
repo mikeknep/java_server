@@ -10,7 +10,7 @@ import java.util.HashMap;
 public class ResponderTest {
     @Test
     public void itSendsAResponse() throws Exception {
-        Response response = new Response("HTTP/1.1", "200 OK", "Hello".getBytes(), new HashMap<String, String>());
+        Response response = new Response("200 OK", new HashMap<String, String>(), "Hello".getBytes());
 
         MockStreamPair mockStreamPair = new MockStreamPair("Hello".getBytes());
         Responder.sendResponse(response, mockStreamPair.getOut());
