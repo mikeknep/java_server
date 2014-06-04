@@ -10,7 +10,7 @@ import static org.junit.Assert.*;
 public class ServerTest {
     @Test(expected = MissingRouterException.class)
     public void itRequiresARouterToBeInstantiated() throws Exception {
-        Server server = new Server("test/sample_files", new ServerSocket(9876), null);
+        Server server = new Server("public/", new ServerSocket(9876), null);
     }
 
     @Test
@@ -20,7 +20,7 @@ public class ServerTest {
             public void run() {
                 try {
                     ServerSocket serverSocket= new ServerSocket(2468);
-                    Server server = new Server("test/sample_files", serverSocket, "mock.jar");
+                    Server server = new Server("public/", serverSocket, "mock.jar");
                     server.run();
                 }
                 catch (Exception e) {}

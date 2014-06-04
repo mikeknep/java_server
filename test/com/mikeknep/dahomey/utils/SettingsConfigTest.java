@@ -5,7 +5,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class SettingsConfigTest {
-    String[] args = {"-p", "8399", "-d", "test/sample_files/", "-r", "mock.jar"};
+    String[] args = {"-p", "8399", "-d", "public/", "-r", "mock.jar"};
     SettingsConfig config = new SettingsConfig(args);
 
     String[] emptyArgs = {};
@@ -19,7 +19,7 @@ public class SettingsConfigTest {
 
     @Test
     public void itSetsDirectoryToServe() {
-        assertEquals("test/sample_files/", config.getDirectory());
+        assertEquals("public/", config.getDirectory());
     }
 
     @Test
