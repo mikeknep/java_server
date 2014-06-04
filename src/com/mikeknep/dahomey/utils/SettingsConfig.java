@@ -36,7 +36,7 @@ public class SettingsConfig {
     }
 
     private void setDirectory(List<String> arguments) {
-        this.directory = "public";
+        this.directory = "public/";
         if (arguments.contains("-d")) {
             String directory = getFlagValue(arguments, "-d");
             if (isValidPath(directory)) {

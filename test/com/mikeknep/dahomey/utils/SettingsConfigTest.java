@@ -34,7 +34,7 @@ public class SettingsConfigTest {
 
     @Test
     public void itDefaultsToLocalPublicFolder() {
-        assertEquals("public", defaultConfig.getDirectory());
+        assertEquals("public/", defaultConfig.getDirectory());
     }
 
     @Test
@@ -96,14 +96,14 @@ public class SettingsConfigTest {
     public void testDirectoryFlagNoValue() {
         String[] badArgs = {"-d"};
         SettingsConfig badConfig = new SettingsConfig(badArgs);
-        assertEquals("public", badConfig.getDirectory());
+        assertEquals("public/", badConfig.getDirectory());
     }
 
     @Test
     public void testMultipleDirectoryFlags() {
         String[] badArgs = {"-d", "-d", "some/directory"};
         SettingsConfig badConfig = new SettingsConfig(badArgs);
-        assertEquals("public", badConfig.getDirectory());
+        assertEquals("public/", badConfig.getDirectory());
     }
 
     @Test
