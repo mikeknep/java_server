@@ -32,7 +32,7 @@ public class ResponsePresenter {
 
 
     private static String formatStatusLine(Response response) {
-        return (response.getVersion() + " " + response.getStatus() + "\n");
+        return ("HTTP/1.1 " + response.getStatus() + "\n");
     }
 
     private static String formatHeaders(Response response) {

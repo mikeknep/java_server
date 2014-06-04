@@ -11,7 +11,6 @@ public class ResponseTest {
     Response response;
     @Before
     public void setUpResponse() {
-        String version = "HTTP/1.1";
         String status = "200 OK";
         byte[] body = "Hello world".getBytes();
         HashMap<String, String> headers = new HashMap<String, String>();
@@ -19,11 +18,6 @@ public class ResponseTest {
         headers.put("Content-Length", "11");
 
         response = new Response(status, headers, body);
-    }
-
-    @Test
-    public void itReturnsHTTPVersion() {
-        assertEquals("HTTP/1.1", response.getVersion());
     }
 
     @Test
