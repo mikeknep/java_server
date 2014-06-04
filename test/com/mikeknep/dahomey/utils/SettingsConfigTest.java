@@ -5,7 +5,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class SettingsConfigTest {
-    String[] args = {"-p", "8399", "-d", "public/", "-r", "mock.jar"};
+    String[] args = {"-p", "8399", "-d", "public/", "-a", "mock.jar"};
     SettingsConfig config = new SettingsConfig(args);
 
     String[] emptyArgs = {};
@@ -23,8 +23,8 @@ public class SettingsConfigTest {
     }
 
     @Test
-    public void itSetsRoutingApplication() {
-        assertEquals("mock.jar", config.getRouter());
+    public void itSetsApplication() {
+        assertEquals("mock.jar", config.getApplication());
     }
 
     @Test
@@ -38,8 +38,8 @@ public class SettingsConfigTest {
     }
 
     @Test
-    public void itDefaultsToNullRouter() {
-        assertEquals(null, defaultConfig.getRouter());
+    public void itDefaultsToNullApplication() {
+        assertEquals(null, defaultConfig.getApplication());
     }
 
 

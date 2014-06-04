@@ -11,17 +11,17 @@ import java.util.List;
 public class SettingsConfig {
     private int port;
     private String directory;
-    private String router;
+    private String application;
 
     public int getPort() { return this.port; }
     public String getDirectory() { return this.directory; }
-    public String getRouter() { return this.router; }
+    public String getApplication() { return this.application; }
 
     public SettingsConfig(String[] args) {
         List<String> arguments = Arrays.asList(args);
         setPortNumber(arguments);
         setDirectory(arguments);
-        setRouter(arguments);
+        setApplication(arguments);
     }
 
 
@@ -45,11 +45,11 @@ public class SettingsConfig {
         }
     }
 
-    private void setRouter(List<String> arguments) {
-        if (arguments.contains("-r")) {
-            String router = getFlagValue(arguments, "-r");
-            if (isValidRouter(router)) {
-                this.router = router;
+    private void setApplication(List<String> arguments) {
+        if (arguments.contains("-a")) {
+            String application = getFlagValue(arguments, "-a");
+            if (isValidApplication(application)) {
+                this.application = application;
             }
         }
     }
@@ -72,7 +72,7 @@ public class SettingsConfig {
         return (directory.length() > 0 && directory.matches("[\\w/]*"));
     }
 
-    private boolean isValidRouter(String router) {
-        return (Files.exists(Paths.get(this.directory + router)) && router.substring(router.lastIndexOf(".")).equals(".jar"));
+    private boolean isValidApplication(String application) {
+        return (Files.exists(Paths.get(this.directory + application)) && application.substring(application.lastIndexOf(".")).equals(".jar"));
     }
 }
