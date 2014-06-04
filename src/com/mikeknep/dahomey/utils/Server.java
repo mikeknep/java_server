@@ -29,15 +29,15 @@ public class Server {
 
     public void run() throws Exception {
         while (true) {
-            SocketStreamPair socketStreamPair = new SocketStreamPair(serverSocket);
-            String rawRequest = Listener.receiveRawRequest(socketStreamPair.getIn());
+            SocketConnection clientConnection = new SocketConnection(serverSocket);
+            String rawRequest = Listener.receiveRawRequest(clientConnection.getIn());
             Request request = RequestBuilder.buildRequest(rawRequest);
             ApplicationInteractor interactor = new ApplicationInteractor(directory, request, application);
             interactor.runApplication();
             Response response = ResponseFactory.buildResponse(interactor.getStatus(), interactor.getHeaders(), interactor.getBody());
-            Responder.sendResponse(response, socketStreamPair.getOut());
-            Logger.logBasic(request, response, socketStreamPair.getSocketOpenTime());
-            socketStreamPair.close();
+            Responder.sendResponse(response, clientConnection.getOut());
+            Logger.logBasic(request, response, clientConnection.getSocketOpenTime());
+            clientConnection.close();
         }
     }
 }

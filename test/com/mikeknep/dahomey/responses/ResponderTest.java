@@ -1,6 +1,6 @@
 package com.mikeknep.dahomey.responses;
 
-import com.mikeknep.dahomey.utils.MockStreamPair;
+import com.mikeknep.dahomey.utils.MockSocketConnection;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -12,9 +12,9 @@ public class ResponderTest {
     public void itSendsAResponse() throws Exception {
         Response response = new Response("200 OK", new HashMap<String, String>(), "Hello".getBytes());
 
-        MockStreamPair mockStreamPair = new MockStreamPair("Hello".getBytes());
-        Responder.sendResponse(response, mockStreamPair.getOut());
+        MockSocketConnection mockConnection = new MockSocketConnection("Hello".getBytes());
+        Responder.sendResponse(response, mockConnection.getOut());
 
-        Assert.assertEquals("HTTP/1.1 200 OK\n\nHello", mockStreamPair.getOut().toString());
+        Assert.assertEquals("HTTP/1.1 200 OK\n\nHello", mockConnection.getOut().toString());
     }
 }

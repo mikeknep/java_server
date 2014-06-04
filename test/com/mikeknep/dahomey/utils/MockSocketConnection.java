@@ -8,11 +8,11 @@ import java.io.OutputStream;
 /**
  * Created by mrk on 5/19/14.
  */
-public class MockStreamPair implements StreamPair {
+public class MockSocketConnection implements StreamPair {
     private InputStream inputStream;
     private OutputStream outputStream;
 
-    public MockStreamPair(byte[] data) {
+    public MockSocketConnection(byte[] data) {
         this.inputStream= new ByteArrayInputStream(data);
         this.outputStream = new ByteArrayOutputStream();
     }

@@ -9,11 +9,11 @@ import java.util.Date;
 /**
  * Created by mrk on 5/19/14.
  */
-public class SocketStreamPair implements StreamPair {
+public class SocketConnection implements StreamPair {
     private Socket socket;
     private Date socketOpenTime;
 
-    public SocketStreamPair(ServerSocket serverSocket) throws Exception {
+    public SocketConnection(ServerSocket serverSocket) throws Exception {
         this.socket = serverSocket.accept();
         this.socketOpenTime = new Date();
     }
