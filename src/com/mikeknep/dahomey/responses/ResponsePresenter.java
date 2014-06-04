@@ -6,7 +6,7 @@ import java.util.Map;
  * Created by mrk on 5/13/14.
  */
 public class ResponsePresenter {
-    public static byte[] presentFullResponseByteArray(Response response) {
+    public static byte[] present(Response response) {
         int size = statusSize(response) + headersSize(response) + newlineSize() + bodySize(response);
         byte[] responseByteArray = new byte[size];
 

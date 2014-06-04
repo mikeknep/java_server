@@ -8,7 +8,7 @@ import java.io.OutputStream;
  */
 public class Responder {
     public static void sendResponse(Response response, OutputStream outputStream) throws Exception {
-        byte[] fullResponseByteArray = ResponsePresenter.presentFullResponseByteArray(response);
+        byte[] fullResponseByteArray = ResponsePresenter.present(response);
         DataOutputStream out = new DataOutputStream(outputStream);
         out.write(fullResponseByteArray);
     }

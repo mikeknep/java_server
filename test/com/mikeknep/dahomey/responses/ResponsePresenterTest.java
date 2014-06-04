@@ -19,6 +19,6 @@ public class ResponsePresenterTest {
 
         byte[] expectedFullResponseByteArray = "HTTP/1.1 200 OK\nContent-Length: 135\nContent-Type: text/html\n\nHello world".getBytes();
 
-        assertArrayEquals(expectedFullResponseByteArray, ResponsePresenter.presentFullResponseByteArray(response));
+        assertArrayEquals(expectedFullResponseByteArray, ResponsePresenter.present(response));
     }
 }
