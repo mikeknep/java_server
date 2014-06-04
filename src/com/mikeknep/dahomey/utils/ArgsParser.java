@@ -73,6 +73,6 @@ public class ArgsParser {
     }
 
     private boolean isValidApplication(String application) {
-        return (Files.exists(Paths.get(this.directory + application)) && application.substring(application.lastIndexOf(".")).equals(".jar"));
+        return (Files.exists(Paths.get(application)) && application.substring(application.lastIndexOf(".")).equals(".jar"));
     }
 }

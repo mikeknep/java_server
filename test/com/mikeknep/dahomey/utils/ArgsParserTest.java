@@ -5,7 +5,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class ArgsParserTest {
-    String[] args = {"-p", "8399", "-d", "public/", "-a", "mock.jar"};
+    String[] args = {"-p", "8399", "-d", "public/", "-a", "public/mock.jar"};
     ArgsParser config = new ArgsParser(args);
 
     String[] emptyArgs = {};
@@ -24,7 +24,7 @@ public class ArgsParserTest {
 
     @Test
     public void itSetsApplication() {
-        assertEquals("mock.jar", config.getApplication());
+        assertEquals("public/mock.jar", config.getApplication());
     }
 
     @Test

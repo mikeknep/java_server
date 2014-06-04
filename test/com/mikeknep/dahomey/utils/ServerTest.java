@@ -20,7 +20,7 @@ public class ServerTest {
             public void run() {
                 try {
                     ServerSocket serverSocket= new ServerSocket(2468);
-                    Server server = new Server("public/", serverSocket, "mock.jar");
+                    Server server = new Server("public/", serverSocket, "public/mock.jar");
                     server.run();
                 }
                 catch (Exception e) {}
