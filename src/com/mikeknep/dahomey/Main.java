@@ -1,7 +1,7 @@
 package com.mikeknep.dahomey;
 
+import com.mikeknep.dahomey.utils.ArgsParser;
 import com.mikeknep.dahomey.utils.Server;
-import com.mikeknep.dahomey.utils.SettingsConfig;
 
 import java.net.ServerSocket;
 
@@ -10,10 +10,10 @@ import java.net.ServerSocket;
  */
 public class Main {
     public static void main(String[] args) throws Exception {
-        SettingsConfig config = new SettingsConfig(args);
-        String rootDirectory = config.getDirectory();
-        ServerSocket serverSocket = new ServerSocket(config.getPort());
-        String application = config.getApplication();
+        ArgsParser parser = new ArgsParser(args);
+        String rootDirectory = parser.getDirectory();
+        ServerSocket serverSocket = new ServerSocket(parser.getPort());
+        String application = parser.getApplication();
         Server server = new Server(rootDirectory, serverSocket, application);
         server.run();
     }

@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Created by mrk on 5/13/14.
  */
-public class SettingsConfig {
+public class ArgsParser {
     private int port;
     private String directory;
     private String application;
@@ -17,7 +17,7 @@ public class SettingsConfig {
     public String getDirectory() { return this.directory; }
     public String getApplication() { return this.application; }
 
-    public SettingsConfig(String[] args) {
+    public ArgsParser(String[] args) {
         List<String> arguments = Arrays.asList(args);
         setPortNumber(arguments);
         setDirectory(arguments);
