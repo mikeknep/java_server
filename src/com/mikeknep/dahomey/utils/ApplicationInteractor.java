@@ -23,7 +23,7 @@ public class ApplicationInteractor {
     }
 
     public void runApplication() throws Exception {
-        ProcessBuilder builder = new ProcessBuilder("java", "-jar", application, rootDirectory, request.getMethod(), request.getResource());
+        ProcessBuilder builder = new ProcessBuilder("java", "-jar", application, rootDirectory, request.getMethod(), request.getResource(), request.getBody());
         builder.redirectErrorStream(true);
         Process process = builder.start();
 
