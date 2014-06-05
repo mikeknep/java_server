@@ -14,12 +14,12 @@ public class RequestTest {
     public void setUpRequest() {
         String method = "GET";
         String resource = "/index.html";
-        String version = "HTTP/1.1";
         HashMap<String, String> headers = new HashMap<String, String>();
         headers.put("Content-Type", "text/html");
         headers.put("Accept-Ranges", "135");
+        String body = "A body";
 
-        request = new Request(method, resource, version, headers);
+        request = new Request(method, resource, headers, body);
     }
 
     @Test
@@ -30,11 +30,6 @@ public class RequestTest {
     @Test
     public void itReturnsItsResource() {
         assertEquals("/index.html", request.getResource());
-    }
-
-    @Test
-    public void itReturnsItsHTTPVersion() {
-        assertEquals("HTTP/1.1", request.getVersion());
     }
 
     @Test
@@ -53,5 +48,10 @@ public class RequestTest {
     @Test
     public void itReturnsNullForNonexistentHeader() {
         assertEquals(null, request.getHeader("nonsense"));
+    }
+
+    @Test
+    public void itReturnsItsBody() {
+        assertEquals("A body", request.getBody());
     }
 }

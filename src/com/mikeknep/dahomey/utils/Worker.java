@@ -7,6 +7,8 @@ import com.mikeknep.dahomey.responses.Responder;
 import com.mikeknep.dahomey.responses.Response;
 import com.mikeknep.dahomey.responses.ResponseFactory;
 
+import java.util.ArrayList;
+
 /**
  * Created by mrk on 6/4/14.
  */
@@ -23,7 +25,7 @@ public class Worker implements Runnable {
 
     public void run() {
         try {
-            String rawRequest = Listener.receiveRawRequest(clientConnection.getIn());
+            ArrayList<String> rawRequest = Listener.receiveRawRequest(clientConnection.getIn());
             Request request = RequestBuilder.buildRequest(rawRequest);
             ApplicationInteractor interactor = new ApplicationInteractor(directory, request, application);
             interactor.runApplication();

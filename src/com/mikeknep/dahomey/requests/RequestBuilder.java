@@ -1,22 +1,24 @@
 package com.mikeknep.dahomey.requests;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
  * Created by mrk on 5/14/14.
  */
 public class RequestBuilder {
-    public static Request buildRequest(String rawRequest) {
+    public static Request buildRequest(ArrayList<String> rawRequest) {
         try {
-            String requestLine = parseRequestLine(rawRequest);
+            String head = rawRequest.get(0);
+            String body = rawRequest.get(1);
+            String requestLine = parseRequestLine(head);
             String method = parseMethod(requestLine);
             String resource = parseResource(requestLine);
-            String version = parseVersion(requestLine);
-            HashMap<String, String> headers = parseHeaders(rawRequest);
+            HashMap<String, String> headers = parseHeaders(head);
 
-            return new Request(method, resource, version, headers);
+            return new Request(method, resource, headers, body);
         } catch (ArrayIndexOutOfBoundsException e) {
-            return new Request("", "", "", new HashMap<String, String>());
+            return new Request("", "", new HashMap<String, String>(), "");
         }
     }
 
@@ -30,10 +32,6 @@ public class RequestBuilder {
 
     private static String parseResource(String requestLine) {
         return requestLine.split(" ")[1];
-    }
-
-    private static String parseVersion(String requestLine) {
-        return requestLine.split(" ")[2];
     }
 
     private static HashMap<String, String> parseHeaders(String rawRequest) {

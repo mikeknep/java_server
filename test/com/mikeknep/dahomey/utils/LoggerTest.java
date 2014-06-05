@@ -37,12 +37,12 @@ public class LoggerTest {
 
     @Test
     public void itLogsRequestResponseTransaction() {
-        Request request = new Request("GET", "/mock.html", "HTTP/1.1", null);
+        Request request = new Request("GET", "/mock.html", null, "");
         Response response = new Response("200 OK", null, "Hello".getBytes());
         Date socketOpenTime = new Date();
 
         Logger.logBasic(request, response, socketOpenTime);
 
-        assertEquals(socketOpenTime.toString() + " 'GET /mock.html HTTP/1.1' 200 OK\n", output.toString());
+        assertEquals(socketOpenTime.toString() + " 'GET /mock.html' 200 OK\n", output.toString());
     }
 }

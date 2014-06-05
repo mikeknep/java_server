@@ -15,6 +15,6 @@ public class Logger {
     }
 
     public static void logBasic(Request request, Response response, Date timeOfRequest) {
-        System.out.println(timeOfRequest.toString() + " '" + request.getMethod() + " " + request.getResource() + " " + request.getVersion() + "' " + response.getStatus());
+        System.out.println(timeOfRequest.toString() + " '" + request.getMethod() + " " + request.getResource() + "' " + response.getStatus());
     }
 }
