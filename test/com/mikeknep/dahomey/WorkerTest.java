@@ -1,5 +1,7 @@
-package com.mikeknep.dahomey.utils;
+package com.mikeknep.dahomey;
 
+import com.mikeknep.dahomey.Worker;
+import com.mikeknep.dahomey.utils.MockSocketConnection;
 import org.junit.Test;
 
 import static org.junit.Assert.*;

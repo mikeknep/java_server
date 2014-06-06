@@ -1,7 +1,6 @@
 package com.mikeknep.dahomey;
 
 import com.mikeknep.dahomey.utils.ArgsParser;
-import com.mikeknep.dahomey.utils.Server;
 
 import java.net.ServerSocket;
 

@@ -1,4 +1,4 @@
-package com.mikeknep.dahomey.utils;
+package com.mikeknep.dahomey;
 
 import com.mikeknep.dahomey.requests.Listener;
 import com.mikeknep.dahomey.requests.Request;
@@ -6,6 +6,9 @@ import com.mikeknep.dahomey.requests.RequestBuilder;
 import com.mikeknep.dahomey.responses.Responder;
 import com.mikeknep.dahomey.responses.Response;
 import com.mikeknep.dahomey.responses.ResponseFactory;
+import com.mikeknep.dahomey.utils.ApplicationInteractor;
+import com.mikeknep.dahomey.utils.Logger;
+import com.mikeknep.dahomey.utils.StreamPair;
 
 import java.util.ArrayList;
 
