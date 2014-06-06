@@ -1,6 +1,5 @@
 package com.mikeknep.dahomey;
 
-import com.mikeknep.dahomey.Server;
 import com.mikeknep.dahomey.utils.MissingApplicationException;
 import org.junit.Test;
 
