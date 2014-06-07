@@ -28,7 +28,7 @@ public class Worker implements Runnable {
 
     public void run() {
         try {
-            ArrayList<String> rawRequest = Listener.receiveRawRequest(clientConnection.getIn());
+            String rawRequest = Listener.receiveRawRequest(clientConnection.getIn());
             Request request = RequestBuilder.buildRequest(rawRequest);
             ApplicationInteractor interactor = new ApplicationInteractor(directory, request, application);
             interactor.runApplication();

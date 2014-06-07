@@ -10,42 +10,16 @@ import static org.junit.Assert.*;
 public class ListenerTest {
 
     @Test
-    public void itReceivesRawRequest() throws Exception {
-        MockSocketConnection mockConnection = new MockSocketConnection("First line\nSecond line\nThird line".getBytes());
-        ArrayList<String> expectedRawRequest = new ArrayList<String>();
-        expectedRawRequest.add("First line\nSecond line\nThird line\n");
-        expectedRawRequest.add("");
+    public void itReceivesAFullRequest() throws Exception {
+        MockSocketConnection mockConnection = new MockSocketConnection("GET / HTTP/1.1\nKey: Value\nAnotherKey: AnotherValue\n\nBody".getBytes());
 
-        assertEquals(expectedRawRequest, Listener.receiveRawRequest(mockConnection.getIn()));
+        assertEquals("GET / HTTP/1.1\nKey: Value\nAnotherKey: AnotherValue\n\nBody\n", Listener.receiveRawRequest(mockConnection.getIn()));
     }
 
     @Test
-    public void itReceivesBadRawRequest() throws Exception {
-        MockSocketConnection mockConnection = new MockSocketConnection("Incomplete   \n".getBytes());
-        ArrayList<String> expectedRawRequest = new ArrayList<String>();
-        expectedRawRequest.add("Incomplete   \n");
-        expectedRawRequest.add("");
+    public void itReceivesARequestWithNoBody() throws Exception {
+        MockSocketConnection mockConnection = new MockSocketConnection("GET / HTTP/1.1\nKey: Value\nAnotherKey: AnotherValue\n\n".getBytes());
 
-        assertEquals(expectedRawRequest, Listener.receiveRawRequest(mockConnection.getIn()));
-    }
-
-    @Test
-    public void itReceivesPhantomRequest() throws Exception {
-        MockSocketConnection mockConnection = new MockSocketConnection("".getBytes());
-        ArrayList<String> expectedRawRequest = new ArrayList<String>();
-        expectedRawRequest.add("");
-        expectedRawRequest.add("");
-
-        assertEquals(expectedRawRequest, Listener.receiveRawRequest(mockConnection.getIn()));
-    }
-
-    @Test
-    public void itReceivesRequestWithBody() throws Exception {
-        MockSocketConnection mockConnection = new MockSocketConnection("GET / HTTP/1.1\nContent-Length: 6\n\nfoobar".getBytes());
-        ArrayList<String> expectedRawRequest = new ArrayList<String>();
-        expectedRawRequest.add("GET / HTTP/1.1\nContent-Length: 6\n");
-        expectedRawRequest.add("foobar");
-
-        assertEquals(expectedRawRequest, Listener.receiveRawRequest(mockConnection.getIn()));
+        assertEquals("GET / HTTP/1.1\nKey: Value\nAnotherKey: AnotherValue\n\n", Listener.receiveRawRequest(mockConnection.getIn()));
     }
 }

@@ -1,20 +1,20 @@
 package com.mikeknep.dahomey.requests;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
  * Created by mrk on 5/14/14.
  */
 public class RequestBuilder {
-    public static Request buildRequest(ArrayList<String> rawRequest) {
+    public static Request buildRequest(String rawRequest) {
         try {
-            String head = rawRequest.get(0);
-            String body = rawRequest.get(1);
-            String requestLine = parseRequestLine(head);
+            String rawHeaders = rawRequest.split("\n\n", 2)[0];
+            String body = rawRequest.split("\n\n", 2)[1];
+
+            String requestLine = parseRequestLine(rawHeaders);
             String method = parseMethod(requestLine);
             String resource = parseResource(requestLine);
-            HashMap<String, String> headers = parseHeaders(head);
+            HashMap<String, String> headers = parseHeaders(rawHeaders);
 
             return new Request(method, resource, headers, body);
         } catch (ArrayIndexOutOfBoundsException e) {
@@ -22,8 +22,8 @@ public class RequestBuilder {
         }
     }
 
-    private static String parseRequestLine(String rawRequest) {
-        return rawRequest.split("\n", 2)[0];
+    private static String parseRequestLine(String rawHeaders) {
+        return rawHeaders.split("\n", 2)[0];
     }
 
     private static String parseMethod(String requestLine) {
@@ -34,11 +34,11 @@ public class RequestBuilder {
         return requestLine.split(" ")[1];
     }
 
-    private static HashMap<String, String> parseHeaders(String rawRequest) {
+    private static HashMap<String, String> parseHeaders(String rawHeaders) {
         HashMap<String, String> headers = new HashMap<String, String>();
         try {
-            String rawHeaders = rawRequest.split("\n", 2)[1];
-            String[] allHeaders = rawHeaders.split("\n");
+            String justHeaders = rawHeaders.split("\n", 2)[1];
+            String[] allHeaders = justHeaders.split("\n");
 
             for (String header : allHeaders) {
                 String[] kvPair = header.split(": ", 2);

@@ -21,10 +21,7 @@ public class RequestBuilderTest {
         headers.put("Content-Type", "text/html");
         headers.put("Accept-Ranges", "135");
         Request expectedRequest = new Request("GET", "/index.html", headers, "body");
-
-        ArrayList<String> rawRequest = new ArrayList<String>();
-        rawRequest.add("GET /index.html HTTP/1.1\nContent-Type: text/html\nAccept-Ranges: 135");
-        rawRequest.add("body");
+        String rawRequest = "GET /index.html HTTP/1.1\nContent-Type: text/html\nAccept-Ranges: 135\n\nbody";
 
         assertTrue(requestsAreEquivalent(expectedRequest, RequestBuilder.buildRequest(rawRequest)));
     }
@@ -32,9 +29,7 @@ public class RequestBuilderTest {
     @Test
     public void itBuildsRequestWithNoHeaders() throws Exception {
         Request expectedRequest = new Request("GET", "/index.html", new HashMap<String, String>(), "body");
-        ArrayList<String> rawRequest = new ArrayList<String>();
-        rawRequest.add("GET /index.html HTTP/1.1\n");
-        rawRequest.add("body");
+        String rawRequest = "GET /index.html HTTP/1.1\n\nbody";
 
         assertTrue(requestsAreEquivalent(expectedRequest, RequestBuilder.buildRequest(rawRequest)));
     }
@@ -42,9 +37,7 @@ public class RequestBuilderTest {
     @Test
     public void itBuildsDeliberatelyInvalidRequestWhenPhantom() throws Exception {
         Request expectedRequest = new Request("", "", new HashMap<String, String>(), "");
-        ArrayList<String> rawRequest = new ArrayList<String>();
-        rawRequest.add("");
-        rawRequest.add("");
+        String rawRequest = "\n";
 
         assertTrue(requestsAreEquivalent(expectedRequest, RequestBuilder.buildRequest(rawRequest)));
     }
@@ -52,9 +45,7 @@ public class RequestBuilderTest {
     @Test
     public void itBuildsDeliberatelyInvalidRequestWhenPartial() throws Exception {
         Request expectedRequest = new Request("", "", new HashMap<String, String>(), "");
-        ArrayList<String> rawRequest = new ArrayList<String>();
-        rawRequest.add("GET ");
-        rawRequest.add("");
+        String rawRequest = "GET \n\n";
 
         assertTrue(requestsAreEquivalent(expectedRequest, RequestBuilder.buildRequest(rawRequest)));
     }
