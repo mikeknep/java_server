@@ -9,7 +9,7 @@ import static org.junit.Assert.*;
 public class WorkerTest {
     @Test
     public void itAcceptsRequestAndSendsResponse() {
-        MockSocketConnection mockConnection = new MockSocketConnection("GET / HTTP/1.1\n\n".getBytes());
+        MockSocketConnection mockConnection = new MockSocketConnection("GET / HTTP/1.1\r\n\r\n".getBytes());
         Worker worker = new Worker(mockConnection, "public/", "public/mock.jar");
         worker.run();
 

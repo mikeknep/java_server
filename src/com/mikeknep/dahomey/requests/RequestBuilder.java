@@ -8,8 +8,8 @@ import java.util.HashMap;
 public class RequestBuilder {
     public static Request buildRequest(String rawRequest) {
         try {
-            String rawHeaders = rawRequest.split("\n\n", 2)[0];
-            String body = rawRequest.split("\n\n", 2)[1];
+            String rawHeaders = rawRequest.split("\r\n\r\n", 2)[0];
+            String body = rawRequest.split("\r\n\r\n", 2)[1];
 
             String requestLine = parseRequestLine(rawHeaders);
             String method = parseMethod(requestLine);
@@ -23,7 +23,7 @@ public class RequestBuilder {
     }
 
     private static String parseRequestLine(String rawHeaders) {
-        return rawHeaders.split("\n", 2)[0];
+        return rawHeaders.split("\r\n", 2)[0];
     }
 
     private static String parseMethod(String requestLine) {
@@ -37,8 +37,8 @@ public class RequestBuilder {
     private static HashMap<String, String> parseHeaders(String rawHeaders) {
         HashMap<String, String> headers = new HashMap<String, String>();
         try {
-            String justHeaders = rawHeaders.split("\n", 2)[1];
-            String[] allHeaders = justHeaders.split("\n");
+            String justHeaders = rawHeaders.split("\r\n", 2)[1];
+            String[] allHeaders = justHeaders.split("\r\n");
 
             for (String header : allHeaders) {
                 String[] kvPair = header.split(": ", 2);

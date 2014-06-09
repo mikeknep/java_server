@@ -14,9 +14,8 @@ public class Listener {
         BufferedReader br = new BufferedReader(isr);
         StringBuilder builder = new StringBuilder();
 
-        builder.append(br.readLine() + "\n");
         while (br.ready()) {
-            builder.append(br.readLine() + "\n");
+            builder.append((char) br.read());
         }
 
         return builder.toString();

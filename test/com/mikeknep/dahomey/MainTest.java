@@ -27,8 +27,7 @@ public class MainTest {
         Thread.sleep(100);
         Socket socket = new Socket("localhost", 2468);
         PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
-        writer.println("GET / HTTP/1.1");
-        writer.println("");
+        writer.println("GET / HTTP/1.1\r\n\r\n");
         writer.flush();
         InputStreamReader isr = new InputStreamReader(socket.getInputStream());
         BufferedReader bufferedReader = new BufferedReader(isr);

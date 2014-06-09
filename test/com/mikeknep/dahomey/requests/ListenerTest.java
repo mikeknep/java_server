@@ -11,15 +11,15 @@ public class ListenerTest {
 
     @Test
     public void itReceivesAFullRequest() throws Exception {
-        MockSocketConnection mockConnection = new MockSocketConnection("GET / HTTP/1.1\nKey: Value\nAnotherKey: AnotherValue\n\nBody".getBytes());
+        MockSocketConnection mockConnection = new MockSocketConnection("GET / HTTP/1.1\r\nKey: Value\r\nAnotherKey: AnotherValue\r\n\r\nBody".getBytes());
 
-        assertEquals("GET / HTTP/1.1\nKey: Value\nAnotherKey: AnotherValue\n\nBody\n", Listener.receiveRawRequest(mockConnection.getIn()));
+        assertEquals("GET / HTTP/1.1\r\nKey: Value\r\nAnotherKey: AnotherValue\r\n\r\nBody", Listener.receiveRawRequest(mockConnection.getIn()));
     }
 
     @Test
     public void itReceivesARequestWithNoBody() throws Exception {
-        MockSocketConnection mockConnection = new MockSocketConnection("GET / HTTP/1.1\nKey: Value\nAnotherKey: AnotherValue\n\n".getBytes());
+        MockSocketConnection mockConnection = new MockSocketConnection("GET / HTTP/1.1\r\nKey: Value\r\nAnotherKey: AnotherValue\r\n\r\n".getBytes());
 
-        assertEquals("GET / HTTP/1.1\nKey: Value\nAnotherKey: AnotherValue\n\n", Listener.receiveRawRequest(mockConnection.getIn()));
+        assertEquals("GET / HTTP/1.1\r\nKey: Value\r\nAnotherKey: AnotherValue\r\n\r\n", Listener.receiveRawRequest(mockConnection.getIn()));
     }
 }

@@ -21,7 +21,7 @@ public class RequestBuilderTest {
         headers.put("Content-Type", "text/html");
         headers.put("Accept-Ranges", "135");
         Request expectedRequest = new Request("GET", "/index.html", headers, "body");
-        String rawRequest = "GET /index.html HTTP/1.1\nContent-Type: text/html\nAccept-Ranges: 135\n\nbody";
+        String rawRequest = "GET /index.html HTTP/1.1\r\nContent-Type: text/html\r\nAccept-Ranges: 135\r\n\r\nbody";
 
         assertTrue(requestsAreEquivalent(expectedRequest, RequestBuilder.buildRequest(rawRequest)));
     }
@@ -29,7 +29,7 @@ public class RequestBuilderTest {
     @Test
     public void itBuildsRequestWithNoHeaders() throws Exception {
         Request expectedRequest = new Request("GET", "/index.html", new HashMap<String, String>(), "body");
-        String rawRequest = "GET /index.html HTTP/1.1\n\nbody";
+        String rawRequest = "GET /index.html HTTP/1.1\r\n\r\nbody";
 
         assertTrue(requestsAreEquivalent(expectedRequest, RequestBuilder.buildRequest(rawRequest)));
     }
@@ -37,7 +37,7 @@ public class RequestBuilderTest {
     @Test
     public void itBuildsDeliberatelyInvalidRequestWhenPhantom() throws Exception {
         Request expectedRequest = new Request("", "", new HashMap<String, String>(), "");
-        String rawRequest = "\n";
+        String rawRequest = "\r\n";
 
         assertTrue(requestsAreEquivalent(expectedRequest, RequestBuilder.buildRequest(rawRequest)));
     }
@@ -45,7 +45,7 @@ public class RequestBuilderTest {
     @Test
     public void itBuildsDeliberatelyInvalidRequestWhenPartial() throws Exception {
         Request expectedRequest = new Request("", "", new HashMap<String, String>(), "");
-        String rawRequest = "GET \n\n";
+        String rawRequest = "GET \r\n";
 
         assertTrue(requestsAreEquivalent(expectedRequest, RequestBuilder.buildRequest(rawRequest)));
     }
