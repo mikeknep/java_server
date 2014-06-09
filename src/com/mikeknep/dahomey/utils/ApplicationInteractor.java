@@ -2,7 +2,10 @@ package com.mikeknep.dahomey.utils;
 
 import com.mikeknep.dahomey.requests.Request;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.HashMap;
 
 /**
@@ -23,15 +26,9 @@ public class ApplicationInteractor {
     }
 
     public void runApplication() throws Exception {
-        ProcessBuilder builder = new ProcessBuilder("java", "-jar", application, rootDirectory, request.getMethod(), request.getResource(), request.getBody());
-        builder.redirectErrorStream(true);
-        Process process = builder.start();
-
-        ObjectInputStream ois = new ObjectInputStream(process.getInputStream());
-        this.status = (String) ois.readObject();
-        this.headers = (HashMap<String, String>) ois.readObject();
-        this.body = (byte[]) ois.readObject();
-
+        Process process = startApplication();
+        sendRequestData(process);
+        receiveResponseData(process);
         process.destroy();
     }
 
@@ -45,5 +42,27 @@ public class ApplicationInteractor {
 
     public byte[] getBody() {
         return this.body;
+    }
+
+    private Process startApplication() throws IOException {
+        ProcessBuilder builder = new ProcessBuilder("java", "-jar", application, rootDirectory);
+        builder.redirectErrorStream(true);
+        return builder.start();
+    }
+
+    private void sendRequestData(Process process) throws IOException {
+        ObjectOutputStream oos = new ObjectOutputStream(process.getOutputStream());
+        oos.writeObject(request.getMethod());
+        oos.writeObject(request.getResource());
+        oos.writeObject(request.getHeaders());
+        oos.writeObject(request.getBody());
+        oos.close();
+    }
+
+    private void receiveResponseData(Process process) throws Exception {
+        ObjectInputStream ois = new ObjectInputStream(process.getInputStream());
+        this.status = (String) ois.readObject();
+        this.headers = (HashMap<String, String>) ois.readObject();
+        this.body = (byte[]) ois.readObject();
     }
 }
