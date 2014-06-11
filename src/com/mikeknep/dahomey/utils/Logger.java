@@ -25,9 +25,8 @@ public class Logger {
             PrintWriter printWriter = new PrintWriter(fileWriter);
             printWriter.write(formatBasic(request, response, timeOfRequest));
             printWriter.close();
-        } catch (IOException e) {
-            System.out.println(formatBasic(request, response, timeOfRequest));
-        }
+        } catch (IOException e) {}
+        System.out.println(formatBasic(request, response, timeOfRequest));
     }
 
     private static String formatBasic(Request request, Response response, Date timeOfRequest) {
