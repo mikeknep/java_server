@@ -34,7 +34,7 @@ public class Worker implements Runnable {
             interactor.runApplication();
             Response response = ResponseFactory.buildResponse(interactor.getStatus(), interactor.getHeaders(), interactor.getBody());
             Responder.sendResponse(response, clientConnection.getOut());
-            Logger.logBasic(request, response, clientConnection.getSocketOpenTime());
+            Logger.logBasic(request, response, clientConnection.getSocketOpenTime(), directory);
             clientConnection.close();
         } catch (Exception exception) {
             exception.printStackTrace();

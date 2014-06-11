@@ -7,7 +7,10 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.PrintStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Date;
 
 import static org.junit.Assert.*;
@@ -36,13 +39,14 @@ public class LoggerTest {
     }
 
     @Test
-    public void itLogsRequestResponseTransaction() {
+    public void itLogsRequestResponseTransaction() throws IOException {
         Request request = new Request("GET", "/mock.html", null, "");
         Response response = new Response("200 OK", null, "Hello".getBytes());
         Date socketOpenTime = new Date();
 
-        Logger.logBasic(request, response, socketOpenTime);
+        Files.deleteIfExists(Paths.get("public/logs"));
+        Logger.logBasic(request, response, socketOpenTime, "public/");
 
-        assertEquals(socketOpenTime.toString() + " 'GET /mock.html HTTP/1.1' 200 OK\n", output.toString());
+        assertArrayEquals((socketOpenTime.toString() + " 'GET /mock.html HTTP/1.1' 200 OK\n").getBytes(), Files.readAllBytes(Paths.get("public/logs")));
     }
 }
