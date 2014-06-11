@@ -43,6 +43,6 @@ public class LoggerTest {
 
         Logger.logBasic(request, response, socketOpenTime);
 
-        assertEquals(socketOpenTime.toString() + " 'GET /mock.html' 200 OK\n", output.toString());
+        assertEquals(socketOpenTime.toString() + " 'GET /mock.html HTTP/1.1' 200 OK\n", output.toString());
     }
 }
