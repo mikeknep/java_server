@@ -59,10 +59,24 @@ public class ApplicationInteractor {
         oos.close();
     }
 
-    private void receiveResponseData(Process process) throws Exception {
-        ObjectInputStream ois = new ObjectInputStream(process.getInputStream());
+    private void receiveResponseData(Process process) {
+        try {
+            ObjectInputStream ois = new ObjectInputStream(process.getInputStream());
+            setupFieldsFromProcess(ois);
+        } catch (Exception e) {
+            setup500();
+        }
+    }
+
+    private void setupFieldsFromProcess(ObjectInputStream ois) throws Exception {
         this.status = (String) ois.readObject();
         this.headers = (HashMap<String, String>) ois.readObject();
         this.body = (byte[]) ois.readObject();
+    }
+
+    private void setup500() {
+        this.status = "500 Internal Server Error";
+        this.headers = new HashMap<String, String>();
+        this.body = "500".getBytes();
     }
 }
