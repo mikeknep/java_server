@@ -1,7 +1,7 @@
 package com.mikeknep.dahomey;
 
 import com.mikeknep.dahomey.utils.Logger;
-import com.mikeknep.dahomey.utils.MissingApplicationException;
+import com.mikeknep.dahomey.exceptions.MissingApplicationException;
 import com.mikeknep.dahomey.utils.SocketConnection;
 
 import java.net.ServerSocket;
