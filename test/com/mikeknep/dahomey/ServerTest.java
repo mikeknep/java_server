@@ -23,7 +23,7 @@ public class ServerTest {
         Thread.sleep(100);
 
         Socket socket = new Socket("localhost", 2468);
-        makeGETRequest(socket, "/");
+        makeGETRequest(socket);
         String firstLine = readFirstLine(socket);
         socket.close();
 
@@ -33,13 +33,13 @@ public class ServerTest {
 
     @Test
     public void itHandlesMultipleRequestsWithThreads() throws Exception {
-        Thread slowGoing = new Thread(new Runnable() {
+        Thread slowClient = new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
                     Socket socket = new Socket("localhost", 9110);
                     Thread.sleep(3000);
-                    makeGETRequest(socket, "/");
+                    makeGETRequest(socket);
                     socket.close();
                 } catch (Exception e) {}
             }
@@ -48,18 +48,18 @@ public class ServerTest {
         runServer(9110);
         Thread.sleep(100);
 
-        slowGoing.start();
+        slowClient.start();
         Thread.sleep(100);
 
         Socket socket = new Socket("localhost", 9110);
-        makeGETRequest(socket, "/");
+        makeGETRequest(socket);
         String firstLine = readFirstLine(socket);
         socket.close();
         Date secondRequestCloseTime = new Date();
 
         assertEquals("HTTP/1.1 200 OK", firstLine);
 
-        slowGoing.join();
+        slowClient.join();
         Date firstRequestCloseTime = new Date();
         assertTrue(secondRequestCloseTime.before(firstRequestCloseTime));
     }
@@ -81,9 +81,9 @@ public class ServerTest {
         serverThread.start();
     }
 
-    private void makeGETRequest(Socket socket, String resource) throws IOException {
+    private void makeGETRequest(Socket socket) throws IOException {
         PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
-        writer.println("GET " + resource + " HTTP/1.1\r");
+        writer.println("GET / HTTP/1.1\r");
         writer.println("\r");
         writer.flush();
     }
